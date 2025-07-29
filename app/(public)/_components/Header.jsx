@@ -1,13 +1,35 @@
 'use client'
-import { useState } from "react";
-import { Menu, X, Heart } from "lucide-react";
+import { useState, useTransition } from "react";
+import { Menu, X, Heart, Loader2, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import { UserDropDown } from "./UserDropDown";
+import { ModeToggle } from "@/components/ui/ModeToggle";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {data: session, status} = authClient.useSession();
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+  
+    const handleLogout = () => {
+    startTransition(async () => {
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            toast.success('Logged out successfully');
+            router.push('/');
+          },
+          onError: () => toast.error('Failed to log out. Please try again'),
+        },
+      });
+    });
+  };
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -67,30 +89,95 @@ const Header = () => {
           </nav>
 
           {/* Desktop CTA */}
-          <motion.div 
-            className="hidden md:flex items-center space-x-4"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <Link href="/login">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="outline" className="border-red-600 text-red-600 hover:bg-red-50">
-                  Login
-                </Button>
-              </motion.div>
-            </Link>
-            <Link href="/shop">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button className="bg-red-600 hover:bg-red-700">
-                  Subscribe Now
-                </Button>
-              </motion.div>
-            </Link>
+      <motion.div 
+        className="hidden md:flex items-center space-x-4"
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        {status === 'loading' ? (
+          <Button variant="outline" size="sm" disabled>
+            <Loader2 className="w-4 h-4 animate-spin" />
+          </Button>
+        ) : session ? (
+          <>
+            {/* 1) User menu trigger: */}
+            <UserDropDown />  
+
+            {/* 2) Logout button (no nesting): */}
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleLogout}
+            >
+              {isPending 
+                ? <Loader2 className="w-4 h-4 animate-spin" /> 
+                : <>
+                    <LogOut className="w-4 h-4 mr-1" />
+                    Log Out
+                  </>
+              }
+            </Button>
+          </>
+        ) : (
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/login">Sign In</Link>
+            </Button>
           </motion.div>
+        )}
+
+        <Link href="/shop" passHref>
+          <Button className="bg-red-600 hover:bg-red-700">
+            Subscribe Now
+          </Button>
+        </Link>
+        <ModeToggle />
+      </motion.div>
+
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex">
+          <motion.div 
+              className="flex md:hidden items-center space-x-4"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              {status === 'loading' ? (
+                <Button variant="outline" size="sm" disabled>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                </Button>
+              ) : session ? (
+                <>
+                  {/* 1) User menu trigger: */}
+                  <UserDropDown />  
+
+                  {/* 2) Logout button (no nesting): */}
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={handleLogout}
+                  >
+                    {isPending 
+                      ? <Loader2 className="w-4 h-4 animate-spin" /> 
+                      : <>
+                          <LogOut className="w-4 h-4 mr-1" />
+                          Log Out
+                        </>
+                    }
+                  </Button>
+                </>
+              ) : (
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/login">Sign In</Link>
+                  </Button>
+                </motion.div>
+              )}
+
+</motion.div>
+
             <motion.div whileTap={{ scale: 0.9 }}>
               <Button
                 variant="ghost"
@@ -158,16 +245,30 @@ const Header = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.4 }}
                 >
-                  <Link href="/login" className="block">
-                    <Button variant="outline" className="w-full border-red-600 text-red-600">
-                      Login
+                  {status === 'loading' ? (
+                    <Button variant="outline" size="sm" disabled>
+                      <Loader2 className="w-4 h-4 animate-spin" />
                     </Button>
-                  </Link>
-                  <Link href="/shop" className="block">
-                    <Button className="w-full bg-red-600 hover:bg-red-700">
-                      Subscribe Now
+                  ) : session ? (
+                    <Button variant="outline" size="sm" onClick={handleLogout}>
+                      {isPending ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <><LogOut className="w-4 h-4 mr-1" />Log Out</>
+                      )}
                     </Button>
-                  </Link>
+                  ) : (
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href="/login">Sign In</Link>
+                    </Button>
+                    
+                    </motion.div>
+                  )}
+                  <Button variant='outline p-0'>
+                    Change Theme <ModeToggle />
+                  </Button>
+
                 </motion.div>
               </div>
             </motion.div>

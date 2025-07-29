@@ -1,6 +1,4 @@
-import '../globals.css'
-import Footer from "./_components/Footer";
-import Header from "./_components/Header";
+import '../../globals.css'
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 
@@ -19,9 +17,7 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
             {children}
-            <Footer />
           <Toaster />
           </ThemeProvider>
         </body>
