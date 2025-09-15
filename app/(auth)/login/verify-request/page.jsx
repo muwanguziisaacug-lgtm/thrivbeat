@@ -38,9 +38,9 @@ const VerifyRequestContent = () => {
     }
   return (
     <main className='w-screen h-screen grid place-content-center'>
-        <Card className='w-3/5 mx-auto text-center p-4'>
-            <CardTitle>Please check your email</CardTitle>
-            <CardDescription>
+        <Card className='w-3/5 mx-auto text-center p-6'>
+            <CardTitle className='text-2xl'>Please check your email</CardTitle>
+            <CardDescription className='text-muted-foreground'>
                 We have sent a verification email code to your email address. Please open the email and paste the code below
             </CardDescription>
             <CardContent>

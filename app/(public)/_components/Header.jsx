@@ -33,6 +33,7 @@ const Header = () => {
 
   const navigation = [
     { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
     { name: "Pricing", href: "/shop" },
     { name: "Courses", href: "/courses" },
     { name: "Support", href: "/support" },
@@ -41,7 +42,7 @@ const Header = () => {
 
   return (
     <motion.header 
-      className="sticky top-0 z-50 bg-white shadow-sm border-b"
+      className="sticky top-0 z-50 bg-background text-foreground shadow-sm border-b"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -61,7 +62,7 @@ const Header = () => {
             >
               <Heart className="w-5 h-5 text-white fill-current" />
             </motion.div>
-            <span className="text-xl font-bold text-gray-900">ThrivBeat</span>
+            <span className="text-xl font-bold text-foreground">ThrivBeat</span>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -75,7 +76,7 @@ const Header = () => {
               >
                 <Link
                   href={item.href}
-                  className="text-gray-700 hover:text-red-600 font-medium transition-colors duration-200 relative"
+                  className="text-foreground hover:text-red-600 font-medium transition-colors duration-200 relative"
                 >
                   <motion.span
                     whileHover={{ scale: 1.1 }}
@@ -102,22 +103,7 @@ const Header = () => {
         ) : session ? (
           <>
             {/* 1) User menu trigger: */}
-            <UserDropDown />  
-
-            {/* 2) Logout button (no nesting): */}
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleLogout}
-            >
-              {isPending 
-                ? <Loader2 className="w-4 h-4 animate-spin" /> 
-                : <>
-                    <LogOut className="w-4 h-4 mr-1" />
-                    Log Out
-                  </>
-              }
-            </Button>
+            <UserDropDown session={ session }/>  
           </>
         ) : (
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -128,7 +114,7 @@ const Header = () => {
         )}
 
         <Link href="/shop" passHref>
-          <Button className="bg-red-600 hover:bg-red-700">
+          <Button className="bg-red-600 hover:bg-red-700 text-white">
             Subscribe Now
           </Button>
         </Link>
@@ -150,23 +136,7 @@ const Header = () => {
                 </Button>
               ) : session ? (
                 <>
-                  {/* 1) User menu trigger: */}
-                  <UserDropDown />  
-
-                  {/* 2) Logout button (no nesting): */}
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={handleLogout}
-                  >
-                    {isPending 
-                      ? <Loader2 className="w-4 h-4 animate-spin" /> 
-                      : <>
-                          <LogOut className="w-4 h-4 mr-1" />
-                          Log Out
-                        </>
-                    }
-                  </Button>
+                  <UserDropDown session={ session }/>  
                 </>
               ) : (
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -216,7 +186,7 @@ const Header = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div 
-              className="md:hidden border-t bg-white"
+              className="md:hidden border-t bg-background"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -232,7 +202,7 @@ const Header = () => {
                   >
                     <Link
                       href={item.href}
-                      className="block px-3 py-2 text-gray-700 hover:text-red-600 font-medium"
+                      className="block px-3 py-2 hover:text-red-600 font-medium"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.name}
@@ -265,9 +235,15 @@ const Header = () => {
                     
                     </motion.div>
                   )}
-                  <Button variant='outline p-0'>
-                    Change Theme <ModeToggle />
-                  </Button>
+                  <div
+                    className="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] px-4 py-2"
+                    style={{ userSelect: 'none' }}
+                    tabIndex={0}
+                    role="button"
+                  >
+                    Change Theme
+                  </div>
+                  <ModeToggle />
 
                 </motion.div>
               </div>

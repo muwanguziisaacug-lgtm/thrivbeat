@@ -49,73 +49,87 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Success Stories
-          </h2>
-          <p className="text-xl text-gray-600">
-            Hear from our community of thriving members
-          </p>
-        </div>
+		<section className="py-20 bg-background">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				{/* Section Header */}
+				<div className="text-center mb-16">
+					<h2 className="text-3xl md:text-4xl font-bold  mb-4">
+						Success Stories
+					</h2>
+					<p className="text-xl text-muted-foreground">
+						Hear from our community of thriving members
+					</p>
+				</div>
 
-        {/* Testimonials Carousel */}
-        <div className="relative max-w-4xl mx-auto">
-          <Card className="shadow-xl border-none bg-white">
-            <CardContent className="p-8 md:p-12">
-              <div className="text-center">
-                {/* Quote Icon */}
-                <Quote className="w-12 h-12 text-red-600 mx-auto mb-6 opacity-50" />
-                
-                {/* Stars */}
-                <div className="flex justify-center mb-6">
-                  {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
+				{/* Testimonials Carousel */}
+				<div className="relative max-w-4xl mx-auto">
+					<Card className="shadow-xl border-none bg-background dark:shadow-red-200">
+						<CardContent className="p-8 md:p-12">
+							<div className="text-center">
+								{/* Quote Icon */}
+								<Quote className="w-12 h-12 text-red-600 mx-auto mb-6 opacity-50" />
 
-                {/* Testimonial Text */}
-                <blockquote className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed italic">
-                  "{testimonials[currentIndex].text}"
-                </blockquote>
+								{/* Stars */}
+								<div className="flex justify-center mb-6">
+									{[
+										...Array(
+											testimonials[currentIndex].rating
+										),
+									].map((_, i) => (
+										<Star
+											key={i}
+											className="w-5 h-5 text-yellow-400 fill-current"
+										/>
+									))}
+								</div>
 
-                {/* Author Info */}
-                <div className="flex items-center justify-center space-x-4">
-                  <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">
-                      {testimonials[currentIndex].image}
-                    </span>
-                  </div>
-                  <div className="text-left">
-                    <div className="font-semibold text-gray-900 text-lg">
-                      {testimonials[currentIndex].name}
-                    </div>
-                    <div className="text-gray-600">
-                      Age {testimonials[currentIndex].age} • {testimonials[currentIndex].condition}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+								{/* Testimonial Text */}
+								<blockquote className="text-xl md:text-2xl text-foreground   mb-8 leading-relaxed italic">
+									"{testimonials[currentIndex].text}"
+								</blockquote>
 
-          {/* Pagination Dots */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                  index === currentIndex ? 'bg-red-600' : 'bg-gray-300'
-                }`}
-                onClick={() => setCurrentIndex(index)}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+								{/* Author Info */}
+								<div className="flex items-center justify-center space-x-4">
+									<div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
+										<span className="text-white font-bold text-lg">
+											{testimonials[currentIndex].image}
+										</span>
+									</div>
+									<div className="text-left">
+										<div className="font-semibold text-foreground text-lg">
+											{testimonials[currentIndex].name}
+										</div>
+										<div className="text-muted-foreground">
+											Age {testimonials[currentIndex].age}{" "}
+											•{" "}
+											{
+												testimonials[currentIndex]
+													.condition
+											}
+										</div>
+									</div>
+								</div>
+							</div>
+						</CardContent>
+					</Card>
+
+					{/* Pagination Dots */}
+					<div className="flex justify-center mt-8 space-x-2">
+						{testimonials.map((_, index) => (
+							<button
+								key={index}
+								className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+									index === currentIndex
+										? "bg-red-600"
+										: "bg-gray-300"
+								}`}
+								onClick={() => setCurrentIndex(index)}
+							/>
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
   );
 };
 

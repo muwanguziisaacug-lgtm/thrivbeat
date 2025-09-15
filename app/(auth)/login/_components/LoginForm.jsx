@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { GithubIcon, GraduationCap, Loader2, Mail } from 'lucide-react';
+import { GithubIcon, GraduationCap, Heart, Loader2, Mail } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
 import { toast } from 'sonner';
 
@@ -67,13 +67,14 @@ export default function LoginForm() {
   // };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-background">
+    <div className="h-screen bg-background dark:bg-background mt-20">
       <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md">
           <Card>
             <CardHeader className="text-center">
               <div className="w-12 h-12 bg-gradient-to-br from-brand-teal to-brand-teal-light rounded-full flex items-center justify-center mx-auto mb-4">
-                <GraduationCap className="w-6 h-6 text-white" />
+                <Heart className="size-10 text-red-500 fill-red-500" />
+                
               </div>
               <CardTitle className="text-2xl font-bold">Sign In</CardTitle>
               <CardDescription>Enter your email to sign in</CardDescription>

@@ -30,7 +30,9 @@ const Footer = () => {
       { name: "Success Stories", href: "/stories" },
       { name: "Free Resources", href: "/resources" },
     ],
-  };
+    };
+    
+    
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -129,7 +131,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <div className="flex flex-col sm:flex-row justify-between items-center">
-            <p>&copy; 2024 ThrivBeat. All rights reserved.</p>
+                      <p>&copy; {new Date().getFullYear()} ThrivBeat. All rights reserved.</p>
             <div className="mt-4 sm:mt-0">
               <p className="text-sm">
                 Made with <Heart className="w-4 h-4 inline fill-current text-red-500" /> for your health
