@@ -28,7 +28,7 @@ export default function LoginForm() {
   const [emailTransition, startEmailTransition] = useTransition();
   const router = useRouter();
   const params = useSearchParams();
-  const next = params.get('next') || '/dashboard';
+  const next = params.get('next') || '/exercise';
 
   function SignInWithEmail() {
     startEmailTransition(async () => {
