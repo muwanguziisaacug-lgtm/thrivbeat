@@ -61,6 +61,7 @@ export default function LoginForm() {
             toast.error('Internal Server Error');
           },
         },
+        newUserCallbackURL: '/onboarding',
       });
     });
   }
