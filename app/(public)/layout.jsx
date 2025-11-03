@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 
 export const metadata = {
-title: "ThrivBeat",
+title: "ThrivBeats",
 description: `Your physical therapist for cardiac issues`,
 };
 

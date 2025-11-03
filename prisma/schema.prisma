@@ -23,6 +23,7 @@ model User {
   accounts      Account[]
   Progress      Progress[]
   sessions      Session[]
+  isAdmin       Boolean @default(false)
 
   @@map("user")
   Onboarding Onboarding[]

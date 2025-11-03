@@ -83,7 +83,7 @@ const Header = () => {
 								<Heart className="w-5 h-5 text-white fill-current" />
 							</motion.div>
 							<span className="text-xl font-bold text-foreground">
-								ThrivBeat
+								ThrivBeats
 							</span>
 						</Link>
 					</motion.div>

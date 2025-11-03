@@ -1,17 +1,12 @@
 import React from "react";
+import { requireAdmin } from "@/lib/require-admin";
 
-const AdminDashboard = () => {
-    /**
-     * In this dashboard will track transactions or subscriptions
-     * courses or class creation
-     * chats
-     * scheduled classes
-     * performance
-     * 
-     */
+const AdminDashboard = async () => {
+  await requireAdmin(); // This will throw an error if not admin
     return <div>
         <h1>Admin Dashboard</h1>
     </div>;
 };
 
-export default AdminDashboard;
+
+export default AdminDashboard

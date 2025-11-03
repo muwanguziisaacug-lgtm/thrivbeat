@@ -56,12 +56,12 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 								<p className="text-muted-foreground text-sm mb-4">
 									Speak directly with our support team
 								</p>
-								<Button
+								{/* <Button
 									variant="outline"
 									className="border-red-600 text-red-600"
 								>
 									1-800-THRIVBEAT
-								</Button>
+								</Button> */}
 							</CardContent>
 						</Card>
 
@@ -80,7 +80,7 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 									variant="outline"
 									className="border-red-600 text-red-600"
 								>
-									support@thrivbeat.com
+									sharon.jakisa@yahoo.com
 								</Button>
 							</CardContent>
 						</Card>
@@ -194,7 +194,7 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 								<p className="text-gray-700 mb-6 max-w-2xl mx-auto">
 									Can't find what you're looking for? Our
 									friendly support team is standing by to help
-									you get the most out of your ThrivBeat
+									you get the most out of your ThrivBeats
 									experience.
 								</p>
 								<div className="flex flex-col sm:flex-row gap-4 justify-center">

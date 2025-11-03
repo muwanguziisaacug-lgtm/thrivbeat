@@ -32,7 +32,7 @@ const About = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why Choose ThrivBeat?
+            Why Choose ThrivBeats?
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             We understand the unique fitness needs of mature adults. Our mission is to help you 
@@ -67,7 +67,7 @@ const About = () => {
               Our Mission
             </h3>
             <p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              At ThrivBeat, we believe that age is just a number and chronic conditions don't have 
+              At ThrivBeats, we believe that age is just a number and chronic conditions don't have 
               to define your limits. Our carefully crafted exercise programs are designed to help 
               mature adults build strength, improve cardiovascular health, and enhance overall 
               well-being in a safe, supportive environment.

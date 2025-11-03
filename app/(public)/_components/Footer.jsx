@@ -45,7 +45,7 @@ const Footer = () => {
               <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
                 <Heart className="w-6 h-6 text-white fill-current" />
               </div>
-              <span className="text-2xl font-bold">ThrivBeat</span>
+              <span className="text-2xl font-bold">ThrivBeats</span>
             </div>
             <p className="text-gray-300 leading-relaxed mb-6 max-w-md">
               Empowering mature adults with safe, guided exercise programs designed 

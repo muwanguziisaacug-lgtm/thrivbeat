@@ -37,9 +37,9 @@ export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
 										<p className="text-muted-foreground mb-2">
 											Speak with our support team
 										</p>
-										<p className="font-semibold  mb-1">
+										{/* <p className="font-semibold  mb-1">
 											1-800-THRIVBEAT
-										</p>
+										</p> */}
 										<p className="text-sm text-gray-500">
 											Monday - Friday: 9 AM - 6 PM EST
 										</p>
@@ -58,7 +58,7 @@ export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
 											Send us a detailed message
 										</p>
 										<p className="font-semibold  mb-1">
-											support@thrivbeat.com
+											sharon.jakisa@yahoo.com
 										</p>
 										<p className="text-sm text-gray-500">
 											We'll respond within 24 hours

@@ -138,8 +138,31 @@ const chartConfig = {
 }
 
 export function ChartAreaInteractive() {
-  const isMobile = useIsMobile()
-  const [timeRange, setTimeRange] = React.useState("90d")
+  const isMobile = useIsMobile();
+  const [timeRange, setTimeRange] = React.useState("90d");
+  const [loading, setLoading] = React.useState(true);
+  const [data, setData] = React.useState([]);
+  const [error, setError] = React.useState(null);
+
+  // Fetch dashboard stats
+  React.useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/dashboard/stats');
+        if (!response.ok) throw new Error('Failed to fetch stats');
+        const stats = await response.json();
+        setData(stats.deviceStats || []);
+      } catch (err) {
+        console.error('Error fetching stats:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   React.useEffect(() => {
     if (isMobile) {
@@ -147,7 +170,7 @@ export function ChartAreaInteractive() {
     }
   }, [isMobile])
 
-  const filteredData = chartData.filter((item) => {
+  const filteredData = data.filter((item) => {
     const date = new Date(item.date)
     const referenceDate = new Date("2024-06-30")
     let daysToSubtract = 90
