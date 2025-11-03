@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, toggleFaq }) => {
+export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, toggleFaq, router }) => {
 	return (
 		<div className="min-h-screen bg-background">
 			<div className="py-20">
@@ -186,7 +186,7 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 
 					{/* Still Need Help Section */}
 					<div className="mt-16">
-						<Card className="bg-red-50 border-red-200 shadow-lg">
+						<Card className="bg-background border-red-200 shadow-lg">
 							<CardContent className="p-8 text-center">
 								<h3 className="text-2xl font-bold  mb-4">
 									Still Need Help?
@@ -198,12 +198,16 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 									experience.
 								</p>
 								<div className="flex flex-col sm:flex-row gap-4 justify-center">
-									<Button className="bg-red-600 hover:bg-red-700">
+                                    <Button
+                                        className="bg-red-600 hover:bg-red-700 text-white"
+                                        onClick = { () => router.push('/contact')}
+                                    >
 										Contact Support
 									</Button>
 									<Button
 										variant="outline"
-										className="border-red-600 text-red-600"
+                                        className="border-red-600 text-red-600"
+                                        onClick = {() => router.push('/support/schedule-call')}
 									>
 										Schedule a Call
 									</Button>

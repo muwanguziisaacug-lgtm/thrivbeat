@@ -95,7 +95,7 @@ const Hero = () => {
 							variants={itemVariants}
 							transition={{ duration: 0.6 }}
 						>
-							<Link href="/shop">
+							<Link href="/pricing">
 								<motion.div
 									whileHover={{ scale: 1.05 }}
 									whileTap={{ scale: 0.95 }}

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
@@ -26,6 +27,8 @@ export default function LoginForm() {
   const [githubPending, startGithubTransition] = useTransition();
   const [emailTransition, startEmailTransition] = useTransition();
   const router = useRouter();
+  const params = useSearchParams();
+  const next = params.get('next') || '/dashboard';
 
   function SignInWithEmail() {
     startEmailTransition(async () => {
@@ -35,7 +38,7 @@ export default function LoginForm() {
         fetchOptions: {
           onSuccess: () => {
             toast.success('Email Sent with an OTP verification');
-            router.push(`/login/verify-request?email=${email}`);
+            router.push(`/login/verify-request?email=${email}&next=${encodeURIComponent(next)}`);
           },
           onError: () => {
             toast.error('Failed to send Email OTP');
@@ -49,7 +52,7 @@ export default function LoginForm() {
     startGithubTransition(async () => {
       await authClient.signIn.social({
         provider: 'google',
-        callbackURL: '/dashboard',
+        callbackURL: next || '/dashboard',
         fetchOptions: {
           onSuccess: () => {
             toast.success('Signed In with Google you will be redirected');

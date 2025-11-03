@@ -18,6 +18,7 @@ const VerifyRequestContent = () => {
     const email = params.get('email')
     const isOTPComplete = otp && otp.length === 6;
     const router = useRouter()
+    const next = params.get('next') || '/dashboard'
     function verifyOTP() {
         startEmailTransition( async () => {
             await authClient.signIn.emailOtp({
@@ -26,7 +27,7 @@ const VerifyRequestContent = () => {
                 fetchOptions: {
                     onSuccess: () => {
                         toast.success('OTP Verified redirecting...........')
-                        router.push('/dashboard')
+                        router.push(next)
 
                     },
                     onError: () => {
