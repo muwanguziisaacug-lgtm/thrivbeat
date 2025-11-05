@@ -30,11 +30,11 @@ const Pricing = () => {
 			]
 		},
     {
-      name: "Premium",
+      name: "Standard",
       description: "Most popular - comprehensive fitness support",
-      monthlyPrice: 15,
-      annualPrice: 150,
-      savings: 30,
+      monthlyPrice: 25,
+      annualPrice: 240,
+      savings: 60,
       icon: Star,
       color: "red",
       popular: true,
@@ -48,25 +48,25 @@ const Pricing = () => {
         "Downloadable workout guides"
       ]
     },
-    // {
-    //   name: "Premium",
-    //   description: "Complete wellness solution with personal support",
-    //   monthlyPrice: 79,
-    //   annualPrice: 790,
-    //   savings: 160,
-    //   icon: Crown,
-    //   color: "black",
-    //   features: [
-    //     "Access to 75+ exercise videos",
-    //     "All Standard features included",
-    //     "Monthly group video calls",
-    //     "Personal progress reviews",
-    //     "Custom exercise modifications", 
-    //     "Direct messaging with trainers",
-    //     "Meal planning resources",
-    //     "Family member access (2 accounts)"
-    //   ]
-    // }
+    {
+      name: "Premium",
+      description: "Complete wellness solution with personal support",
+      monthlyPrice: 40,
+      annualPrice: 380,
+      savings: 100,
+      icon: Crown,
+      color: "black",
+      features: [
+        "Access to 75+ exercise videos",
+        "All Standard features included",
+        "Monthly group video calls",
+        "Personal progress reviews",
+        "Custom exercise modifications", 
+        "Direct messaging with trainers",
+        "Meal planning resources",
+        "Family member access (2 accounts)"
+      ]
+    }
   ];
 
   const getPrice = (plan) => {
@@ -152,7 +152,7 @@ const Pricing = () => {
 					</div>
 
 					{/* Plans Grid */}
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 						{plans.map((plan, index) => (
 							<Card
 								key={plan.name}
@@ -248,6 +248,7 @@ const Pricing = () => {
 										onClick={() =>
 											handleSubscribe(plan.name)
 										}
+										disabled = { plan.name == 'Free'}
 									>
 										Get Started
 									</Button>

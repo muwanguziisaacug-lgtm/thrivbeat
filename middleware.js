@@ -1,45 +1,69 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { verifyAdmin } from "./lib/require-admin";
+
+// Separate admin and protected paths
+const adminPaths = ["/admin"];
+const protectedPaths = ["/dashboard"];
 
 export async function middleware(request) {
-  // Check if the current route is an admin route
-  const isAdminRoute = request.nextUrl.pathname.startsWith('/admin');
+  const { pathname } = request.nextUrl;
 
-  try {
-    // Get the session token from cookies
-    const sessionToken = request.cookies.get('session')?.value;
+  // Check if path is admin route
+  const isAdminRoute = adminPaths.some((path) =>
+    pathname.startsWith(path)
+  );
 
-    if (!sessionToken) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
+  // Check if path is protected route
+  const isProtectedRoute = protectedPaths.some((path) =>
+    pathname.startsWith(path)
+  );
 
-    // Verify session and get user
-    const session = await prisma.session.findUnique({
-      where: { token: sessionToken },
-      include: { user: { select: { isAdmin: true } } }
-    });
+  // Check for authentication cookie
+  const token = request.cookies.get("better-auth.session_token")?.value;
 
-    // Check if session is valid and not expired
-    if (!session || session.expiresAt < new Date()) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    // For admin routes, check if the user is an admin
-    if (isAdminRoute && !session.user?.isAdmin) {
-      // Redirect non-admin users to dashboard
-      return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
-
-    return NextResponse.next();
-  } catch (error) {
-    console.error("Middleware error:", error);
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (!token) {
+    // Redirect to login if not authenticated
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("from", pathname);
+    return NextResponse.redirect(loginUrl);
   }
+
+  // For admin routes, get the session and verify admin status
+  if (isAdminRoute) {
+    const headers = Object.fromEntries(request.headers.entries());
+    try {
+      const response = await fetch(new URL('/api/auth/check-admin', request.url), {
+        headers: {
+          cookie: request.headers.get('cookie') || '',
+        },
+      });
+      
+      if (!response.ok) {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
+    } catch (error) {
+      console.error('Admin check error:', error);
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
+
+  // For admin routes, verify admin status
+  if (isAdminRoute) {
+    try {
+      const adminCheck = await verifyAdmin();
+      if (!adminCheck.success) {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
+    } catch (error) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
+
+  // Allow the request
+  return NextResponse.next();
 }
 
+// Apply middleware only to these routes
 export const config = {
-  matcher: [
-    "/dashboard/:path*",
-    "/admin/:path*" // Added admin routes to the matcher
-  ]
+  matcher: ["/admin/:path*", "/dashboard/:path*"],
 };

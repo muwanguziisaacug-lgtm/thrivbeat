@@ -1,28 +1,36 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export async function GET() {
   try {
-    // Get session token from cookies
-    const sessionToken = cookies().get('session')?.value;
+    try {
+      // Get session and user data
+      const session = await prisma.session.findUnique({
+        where: { token: sessionToken },
+        include: {
+          user: {
+            select: { isAdmin: true }
+          }
+        }
+      });
+      
+      if (!session?.user) {
+        return NextResponse.json({ isAdmin: false }, { status: 401 });
+      }
 
-    if (!sessionToken) {
+      // Get user data directly
+      const user = await prisma.user.findUnique({
+        where: { id: sessionData.userId },
+        select: { isAdmin: true }
+      });
+
+      return NextResponse.json({ isAdmin: !!user?.isAdmin });
+    } catch (e) {
+      console.error('Error decoding session:', e);
       return NextResponse.json({ isAdmin: false }, { status: 401 });
     }
-
-    // Find the session and include user data
-    const session = await prisma.session.findUnique({
-      where: { token: sessionToken },
-      include: { user: { select: { isAdmin: true } } }
-    });
-
-    // Check if session is valid and not expired
-    if (!session || session.expiresAt < new Date()) {
-      return NextResponse.json({ isAdmin: false }, { status: 401 });
-    }
-
-    return NextResponse.json({ isAdmin: !!session.user?.isAdmin });
   } catch (error) {
     console.error('Error checking admin status:', error);
     return NextResponse.json({ isAdmin: false }, { status: 500 });
