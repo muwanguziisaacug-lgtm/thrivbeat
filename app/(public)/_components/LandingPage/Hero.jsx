@@ -51,7 +51,7 @@ const Hero = () => {
 							variants={itemVariants}
 							transition={{ duration: 0.6 }}
 						>
-							ThrivBeat empowers mature adults with safe, guided
+							Fitness needs for adults and older adults with safe, guided
 							exercise programs designed to support
 							chronic-condition recovery and lifelong heart
 							health.

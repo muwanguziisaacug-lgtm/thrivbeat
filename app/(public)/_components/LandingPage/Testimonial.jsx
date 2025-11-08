@@ -1,10 +1,13 @@
 'use client'
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Quote } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const router = useRouter()
   
   const testimonials = [
     {
@@ -128,6 +131,9 @@ const Testimonials = () => {
 						))}
 					</div>
 				</div>
+			</div>
+			<div className="w-full mt-10 flex justify-center">
+				<Button className='bg-red-600 font-medium w-1/4' onClick={() => router.push('/testimonials')}> GET STARTED</Button>
 			</div>
 		</section>
   );

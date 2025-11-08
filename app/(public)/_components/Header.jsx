@@ -10,6 +10,7 @@ import { ModeToggle } from "@/components/ui/ModeToggle";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { getSubscriptionStatus } from "@/app/actions/public-actions";
+import Image from "next/image";
 
 
 const Header = () => {
@@ -76,11 +77,17 @@ const Header = () => {
 					>
 						<Link href="/" className="flex items-center space-x-2">
 							<motion.div
-								className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center"
+								className="w-10 h-10 relative bg-red-600 rounded-full flex items-center justify-center"
 								whileHover={{ rotate: 360 }}
 								transition={{ duration: 0.5 }}
 							>
-								<Heart className="w-5 h-5 text-white fill-current" />
+								{/* <Heart className="w-5 h-5 text-white fill-current" /> */}
+								<Image 
+									src='/logo.jpg'
+									fill
+									alt="thrivbeats logo"
+									className="object-cover"
+								/>
 							</motion.div>
 							<span className="text-xl font-bold text-foreground">
 								ThrivBeats

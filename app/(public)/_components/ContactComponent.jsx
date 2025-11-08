@@ -37,9 +37,9 @@ export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
 										<p className="text-muted-foreground mb-2">
 											Speak with our support team
 										</p>
-										{/* <p className="font-semibold  mb-1">
-											1-800-THRIVBEAT
-										</p> */}
+										<p className="font-semibold  mb-1">
+											07832669993
+										</p>
 										<p className="text-sm text-gray-500">
 											Monday - Friday: 9 AM - 6 PM EST
 										</p>
@@ -82,7 +82,7 @@ export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
 											className="w-full bg-green-600 hover:bg-green-700"
 											onClick={() =>
 												window.open(
-													"https://wa.me/1234567890",
+													"https://wa.me/07832669993",
 													"_blank"
 												)
 											}

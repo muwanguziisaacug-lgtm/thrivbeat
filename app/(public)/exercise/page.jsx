@@ -121,13 +121,13 @@ export default function ExercisesPage() {
 					</div>
 				  </CardHeader>
 
-				  <CardContent>
-					<p className="text-muted-foreground mb-4 line-clamp-2">
-					  <Skeleton className="h-4 w-full mb-2" />
-					  <Skeleton className="h-4 w-3/4" />
-					</p>
-					<Skeleton className="h-10 w-full rounded-md" />
-				  </CardContent>
+									<CardContent>
+										<div className="text-muted-foreground mb-4 line-clamp-2">
+											<Skeleton className="h-4 w-full mb-2" />
+											<Skeleton className="h-4 w-3/4" />
+										</div>
+										<Skeleton className="h-10 w-full rounded-md" />
+									</CardContent>
 				</Card>
 			  </div>
 			))}
@@ -200,7 +200,7 @@ export default function ExercisesPage() {
 			</AnimatePresence>
 		  </motion.div>
 		)}
-
+{/* 
 		<motion.div className="mt-16 bg-background rounded-2xl p-8" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
 		  <h3 className="text-2xl font-bold mb-6 text-center">Your Progress</h3>
 		  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -212,7 +212,7 @@ export default function ExercisesPage() {
 			  </div>
 			))}
 		  </div>
-		</motion.div>
+		</motion.div> */}
 	  </div>
 	</div>
   );

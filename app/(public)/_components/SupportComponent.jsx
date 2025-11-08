@@ -31,7 +31,7 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 						</p>
 
 						{/* Search Bar */}
-						<div className="relative max-w-md mx-auto">
+						{/* <div className="relative max-w-md mx-auto">
 							<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
 							<Input
 								type="text"
@@ -40,7 +40,7 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 								onChange={(e) => setSearchTerm(e.target.value)}
 								className="pl-10 pr-4 py-3 text-lg"
 							/>
-						</div>
+						</div> */}
 					</div>
 
 					{/* Quick Contact Options */}
@@ -56,12 +56,12 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 								<p className="text-muted-foreground text-sm mb-4">
 									Speak directly with our support team
 								</p>
-								{/* <Button
+								<Button
 									variant="outline"
 									className="border-red-600 text-red-600"
 								>
-									1-800-THRIVBEAT
-								</Button> */}
+									07832669993
+								</Button>
 							</CardContent>
 						</Card>
 
@@ -96,15 +96,23 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 								<p className="text-muted-foreground text-sm mb-4">
 									Quick questions? Chat instantly
 								</p>
-								<Button className="bg-green-600 hover:bg-green-700">
-									Start Chat
-								</Button>
+										<Button
+											className="w-full bg-green-600 hover:bg-green-700"
+											onClick={() =>
+												window.open(
+													"https://wa.me/07832669993",
+													"_blank"
+												)
+											}
+										>
+											Start Chat
+										</Button>
 							</CardContent>
 						</Card>
 					</div>
 
 					{/* FAQ Section */}
-					<div>
+					<section id="faq">
 						<h2 className="text-3xl font-bold text-center  mb-12">
 							Frequently Asked Questions
 						</h2>
@@ -182,7 +190,7 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 								))}
 							</div>
 						)}
-					</div>
+					</section>
 
 					{/* Still Need Help Section */}
 					<div className="mt-16">

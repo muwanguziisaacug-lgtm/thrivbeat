@@ -1,6 +1,7 @@
 
 import { Heart, Facebook, Instagram, Youtube, Twitter } from "lucide-react";
 import Link from "next/link";
+import SubscriptionInput from "./SubscriptionInput";
 
 
 
@@ -8,21 +9,21 @@ const Footer = () => {
   const footerLinks = {
     company: [
       { name: "About Us", href: "/about" },
-      { name: "Our Story", href: "/story" },
-      { name: "Careers", href: "/careers" },
-      { name: "Press", href: "/press" },
+      { name: "Pricing", href: "/pricing" },
+      { name: "Exercises", href: "/exercise" },
+      // { name: "Press", href: "/press" },
     ],
     support: [
       { name: "Help Center", href: "/support" },
       { name: "Contact Us", href: "/contact" },
-      { name: "FAQ", href: "/faq" },
+      { name: "FAQ", href: "/support#faq" },
       { name: "Community", href: "/community" },
     ],
     legal: [
-      { name: "Terms & Conditions", href: "/terms" },
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Medical Disclaimer", href: "/disclaimer" },
-      { name: "Accessibility", href: "/accessibility" },
+      { name: "Terms & Conditions", href: "/legal/terms" },
+      { name: "Privacy Policy", href: "/legal/policy" },
+      { name: "Medical Disclaimer", href: "/legal/medicaldisclaimer" },
+      { name: "Accessibility", href: "/legal/accessbility" },
     ],
     resources: [
       { name: "Exercise Library", href: "/exercises" },
@@ -115,7 +116,8 @@ const Footer = () => {
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
               Get health tips, exercise updates, and inspiring stories delivered to your inbox
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <SubscriptionInput />
+            {/* <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
@@ -124,7 +126,7 @@ const Footer = () => {
               <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
                 Subscribe
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
 

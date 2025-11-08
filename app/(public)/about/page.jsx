@@ -73,7 +73,7 @@ export default function AboutUs() {
             What we offer
           </motion.h2>
 
-          <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <div className="mt-6 grid gap-6 md:grid-cols-4">
             <OfferCard
               title="Tailored weekly classes"
               desc={`Pre-recorded and live weekly cardiac exercise classes — chair-based or standing — tailored to your abilities and goals.`}
@@ -81,6 +81,10 @@ export default function AboutUs() {
 
             <OfferCard
               title="Exercise prescriptions"
+              desc={`Clear, easy-to-follow exercise prescriptions with short demonstration videos so you can practise safely at home.`}
+            />
+            <OfferCard
+              title="Sports Massage Therapist"
               desc={`Clear, easy-to-follow exercise prescriptions with short demonstration videos so you can practise safely at home.`}
             />
 

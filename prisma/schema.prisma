@@ -173,6 +173,10 @@ model Onboarding {
   updatedAt         DateTime @updatedAt
 }
 
+model Emailsubscription {
+  id      String @default(uuid())
+  email   String @unique
+}
   enum Plan {
     FREE
     PREMIUM

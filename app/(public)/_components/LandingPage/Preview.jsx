@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Play, Clock, Users, Target } from "lucide-react";
+import Link from "next/link";
 
 const PreviewSection = () => {
   return (
@@ -109,9 +110,9 @@ const PreviewSection = () => {
 						</div>
 
 						<div className="pt-6">
-							<Button className="bg-red-600 hover:bg-red-700 text-lg px-8 py-3 text-white cursor-pointer">
-								Start Your Free Trial
-							</Button>
+							<Link href='/pricing' className="bg-red-600 hover:bg-red-700 text-lg px-8 py-3 text-white cursor-pointer rounded-md mb-2">
+								Start Your free Trial
+							</Link>
 							<p className="text-sm text-muted-foreground mt-2">
 								No commitment • Cancel anytime • 7-day free
 								trial

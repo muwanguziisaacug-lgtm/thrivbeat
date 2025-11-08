@@ -1,13 +1,15 @@
-create page
-1.Exercise title
-2.category
-3.description
-4.video upload box
-5.difficult level
-6.duration
-7.caloires burned
-8.Instructions
-9.Equipment needed
+Legal pages (terms, privacy, policy, disclaimer, accessbility)
+
+community page
+
+schedule call page functionality
+
+live account stripe connection
+
+user subscription check period or expiration
 
 
-notifications
+if the user is subscribed, remove the get started in the header
+
+
+create the testimonial page

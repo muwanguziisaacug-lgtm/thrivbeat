@@ -2,27 +2,33 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { requireSession } from "@/lib/require-session";
 
 export async function GET() {
   try {
     try {
+    const session = await requireSession()
+
+      console.log(session)
+
+      if(!session) return NextResponse.json({ isAdmin: false}, { status: 500 });
       // Get session and user data
-      const session = await prisma.session.findUnique({
-        where: { token: sessionToken },
-        include: {
-          user: {
-            select: { isAdmin: true }
-          }
-        }
-      });
+      // const session = await prisma.user.findUnique({
+      //   where: { id: ses.user.id },
+      //   include: {
+      //     user: {
+      //       select: { isAdmin: true }
+      //     }
+      //   }
+      // });
       
-      if (!session?.user) {
-        return NextResponse.json({ isAdmin: false }, { status: 401 });
-      }
+      // if (!session?.user) {
+      //   return NextResponse.json({ isAdmin: false }, { status: 401 });
+      // }
 
       // Get user data directly
       const user = await prisma.user.findUnique({
-        where: { id: sessionData.userId },
+        where: { id: session.user.id },
         select: { isAdmin: true }
       });
 
