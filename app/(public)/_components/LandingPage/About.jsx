@@ -2,6 +2,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Target, Users, Award } from "lucide-react";
 
+export const metadata = {
+    title: 'About'
+}
+
 const About = () => {
   const features = [
     {

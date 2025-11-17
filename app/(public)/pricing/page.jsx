@@ -32,9 +32,9 @@ const Pricing = () => {
     {
       name: "Standard",
       description: "Most popular - comprehensive fitness support",
-      monthlyPrice: 25,
-      annualPrice: 240,
-      savings: 60,
+      monthlyPrice: 20,
+      annualPrice: 129,
+      savings: 48,
       icon: Star,
       color: "red",
       popular: true,
@@ -51,9 +51,9 @@ const Pricing = () => {
     {
       name: "Premium",
       description: "Complete wellness solution with personal support",
-      monthlyPrice: 40,
-      annualPrice: 380,
-      savings: 100,
+      monthlyPrice: 50,
+      annualPrice: 480,
+      savings: 120,
       icon: Crown,
       color: "black",
       features: [
@@ -202,7 +202,7 @@ const Pricing = () => {
 									<div className="mt-6">
 										<div className="flex items-baseline justify-center">
 											<span className="text-4xl font-bold ">
-												${getPrice(plan)}
+												&pound;{getPrice(plan)}
 											</span>
 											<span className="text-muted-foreground ml-2">
 												/month
