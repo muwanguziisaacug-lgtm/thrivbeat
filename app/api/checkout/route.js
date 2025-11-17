@@ -144,8 +144,8 @@ export async function POST(req) {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000'}/dashboard/payment/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/dashboard/payment/failed`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}failed`,
       ...(customer_email ? { customer_email } : {}),
       metadata: { userId: userId || '', plan: planUpper, period },
       });
