@@ -17,7 +17,14 @@ export async function middleware(request) {
   }
 
   // Check for authentication cookie
-  const token = request.cookies.get("better-auth.session_token")?.value;
+
+  const production = "__Secure-better-auth.session_token"
+  const development = "better-auth.session_token"
+
+  const cookieName = process.env.BETTER_AUTH_NODE_ENV === "production" ? production : development;
+  console.log(cookieName)
+
+  const token = request.cookies.get(cookieName)?.value;
 
   if (!token) {
     // Redirect to login if not authenticated
