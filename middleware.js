@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { verifyAdmin } from "./lib/require-admin";
+// Note: Avoid importing server-only modules like Prisma in middleware because
+// middleware runs in the Edge runtime which does not support Node.js modules
+// such as 'crypto' used by Prisma. Instead, use a server API route for checks.
 
 // Separate admin and protected paths
 const adminPaths = ["/admin"];
@@ -47,17 +49,9 @@ export async function middleware(request) {
     }
   }
 
-  // For admin routes, verify admin status
-  if (isAdminRoute) {
-    try {
-      const adminCheck = await verifyAdmin();
-      if (!adminCheck.success) {
-        return NextResponse.redirect(new URL("/login", request.url));
-      }
-    } catch (error) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-  }
+  // The middleware already calls the server API `/api/auth/check-admin` above
+  // which runs in a Node.js server runtime and can safely interact with Prisma.
+  // Do not import Prisma in middleware (Edge runtime) — rely on the API response.
 
   // Allow the request
   return NextResponse.next();

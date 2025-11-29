@@ -1,4 +1,4 @@
-import PatientPortal from "./_components/PatientPortal";
+import PatientPortal from "../_components/PatientPortal";
 
 export default function Page() {
   return (
