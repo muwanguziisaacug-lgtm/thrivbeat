@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function ExercisesPage() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -137,9 +138,15 @@ export default function ExercisesPage() {
 			<AnimatePresence>
 			  {filteredExercises.map((exercise) => (
 				<motion.div key={exercise.id} variants={itemVariants} initial="hidden" animate="visible" transition={{ duration: 0.35 }}>
-				  <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
-					<div className="relative">
-					  <img src={exercise.thumbnailKey || exercise.thumbnail} alt={exercise.title} className="w-full h-48 object-cover" />
+				  <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 pt-0">
+					<div className="relative w-full h-48 object-cove">
+						<Image 
+							src={ exercise.thumbnailKey }
+							alt={exercise.title}
+							fill
+
+						/>
+					  {/* <img src={exercise.thumbnailKey} alt={exercise.title} className="w-full h-48 object-cover" /> */}
 					  {exercise.isLocked && (
 						<div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
 						  <Lock className="w-8 h-8 text-white" />
@@ -152,7 +159,7 @@ export default function ExercisesPage() {
 					  )}
 					  <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm flex items-center">
 						<Clock className="w-4 h-4 mr-1" />
-						{exercise.duration}
+						{exercise.duration} mins
 					  </div>
 					</div>
 
@@ -170,17 +177,18 @@ export default function ExercisesPage() {
 						{exercise.isLocked ? (
 						  <Button
 							className="w-full bg-yellow-600 text-white"
-							onClick={async () => {
-							  try {
-								const res = await fetch('/api/auth/status');
-								const json = await res.json();
-								if (!json?.success) router.push(`/login?next=/pricing`);
-								else router.push('/pricing');
-							  } catch (err) {
-								console.error(err);
-								router.push('/pricing');
-							  }
-							}}
+							// onClick={async () => {
+							//   try {
+							// 	const res = await fetch('/api/auth/status');
+							// 	const json = await res.json();
+							// 	if (!json?.success) router.push(`/login?next=/pricing`);
+							// 	else router.push('/pricing');
+							//   } catch (err) {
+							// 	console.error(err);
+							// 	router.push('/pricing');
+							//   }
+							// }}
+							onClick={ () => router.push(`/exercise/${exercise.id}/view`)}
 						  >
 							<Lock className="w-4 h-4 mr-2" /> Upgrade to Access
 						  </Button>

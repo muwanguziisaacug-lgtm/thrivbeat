@@ -10,12 +10,13 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Clock, Users, TrendingUp, Play, ArrowLeft, CheckCircle } from "lucide-react";
+import { Clock, Users, TrendingUp, Play, ArrowLeft, CheckCircle, Dot, Lock } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { getExercise, getSubscriptionStatus } from "@/app/actions/public-actions";
 import { toast } from "sonner";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 
 	export default function ExerciseViewPage() {
 		const { id } = useParams();
@@ -29,26 +30,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 		const [subscription, setSubscription] = useState(null);
 		const [showDialog, setShowDialog] = useState(false);
 
-
-		console.log(exercise)
-
 		// Router helper for redirects (use the existing `navigate` instance)
 
 		const handleUpgrade = async () => {
-			try {
-				const res = await fetch('/api/auth/status');
-				const json = await res.json();
-				if (!json?.success) {
-					// not logged in -> send to login, preserve next
-					navigate.push(`/login?next=/pricing`);
-					return;
-				}
-				// logged in -> go to pricing
 				navigate.push('/pricing');
-			} catch (err) {
-				console.error('handleUpgrade error', err);
-				navigate.push('/pricing');
-			}
 		};
 
 		useEffect(() => {
@@ -180,16 +165,80 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 					</div>
 				</header>
 
-				<main className="container mx-auto px-4 py-8">
+				<main className="container mx-auto px-4 py-8" aria-busy={loading}>
 					{loading ? (
-						<p>Loading..........</p>
-					) : error ? (
+							<div className="grid lg:grid-cols-3 gap-8">
+								<div className="lg:col-span-2 space-y-6">
+									<Card className='p-0'>
+										<CardContent className="p-0">
+											<div className="relative aspect-video bg-muted rounded-t-lg overflow-hidden">
+												<Skeleton className="w-full h-full rounded-t-lg" />
+												<div className="absolute inset-0 flex items-center justify-center">
+													<Skeleton className="h-16 w-16 rounded-full" />
+												</div>
+											</div>
+										</CardContent>
+									</Card>
+
+									<div className="space-y-4">
+										<Skeleton className="h-6 w-1/2" />
+										<Skeleton className="h-3 w-full" />
+										<div className="flex flex-wrap gap-2">
+											<Skeleton className="h-6 w-16" />
+											<Skeleton className="h-6 w-16" />
+											<Skeleton className="h-6 w-16" />
+										</div>
+									</div>
+
+									<div className="space-y-6">
+										<Card>
+											<CardHeader>
+												<Skeleton className="h-6 w-1/3" />
+											</CardHeader>
+											<CardContent>
+												<div className="space-y-2">
+													<Skeleton className="h-3 w-full" />
+													<Skeleton className="h-3 w-5/6" />
+													<Skeleton className="h-3 w-2/3" />
+												</div>
+											</CardContent>
+										</Card>
+
+										<Card>
+											<CardHeader>
+												<Skeleton className="h-6 w-1/3" />
+											</CardHeader>
+											<CardContent>
+												<div className="space-y-3">
+													<Skeleton className="h-4 w-full" />
+													<Skeleton className="h-4 w-full" />
+													<Skeleton className="h-4 w-3/4" />
+												</div>
+											</CardContent>
+										</Card>
+									</div>
+								</div>
+
+								<div className="space-y-4">
+									<Card>
+										<CardHeader>
+											<Skeleton className="h-8 w-full" />
+										</CardHeader>
+										<CardContent className="flex flex-col gap-4">
+											<Skeleton className="h-6 w-3/4" />
+											<Skeleton className="h-3 w-full" />
+											<Skeleton className="h-3 w-2/3" />
+										</CardContent>
+									</Card>
+								</div>
+							</div>
+						) : error ? (
 						<p>{error}</p>
 					) : (
 						<div className="grid lg:grid-cols-3 gap-8">
 							<div className="lg:col-span-2 space-y-6">
 								{/* Video Player */}
-								<Card>
+								<Card className='p-0'>
 									<CardContent className="p-0">
 										<div className="relative aspect-video bg-muted rounded-t-lg overflow-hidden">
 																{!isPlaying ? (
@@ -213,9 +262,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 																			</Button>
 																		</div>
 																	</>
-																) : (
-																	<div className="w-full h-full flex items-center justify-center">
-																			{isLocked ? (
+																		) : (
+																			<div className="w-full h-full flex items-center justify-center">
+																				{isLocked ? (
 																				<div className="flex flex-col items-center justify-center w-full h-full">
 																					<p className="text-lg font-semibold mb-4">Upgrade to access this video</p>
 																					<Dialog open={showDialog} onOpenChange={setShowDialog}>
@@ -228,9 +277,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 																						</DialogContent>
 																					</Dialog>
 																				</div>
-																			) : (
+																				) : (
 																			videoLoading ? (
-																				<div className="flex items-center justify-center w-full h-full">Loading video...</div>
+																				<div className="flex items-center justify-center w-full h-full">
+																					<Skeleton className="w-3/4 h-3/4 rounded-md" />
+																				</div>
 																			) : (
 																				( exercise?.videoKey) ? (
 																					<video
@@ -279,9 +330,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 												</p>
 												<div className="flex flex-wrap gap-2 mb-2">
 													<Badge>{exercise?.level}</Badge>
-													<Badge>{exercise?.category}</Badge>
-													<Badge>{exercise?.plan}</Badge>
-													{exercise?.duration && <Badge><Clock className="inline w-4 h-4 mr-1" />{exercise.duration} min</Badge>}
+													<Badge className='bg-red-400'>{exercise?.category}</Badge>
+													<Badge className='bg-green-400'>{exercise?.plan}</Badge>
+													{exercise?.duration && <Badge className='bg-yellow-400'><Clock className="inline w-4 h-4 mr-1" />{exercise.duration} min</Badge>}
 												</div>
 												{benefitsArr.length > 0 && (
 													<>
@@ -311,7 +362,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 												{isLocked ? (
 													<div className="flex flex-col items-center justify-center py-8">
 														<p className="mb-4 text-lg font-semibold">Upgrade to view steps</p>
-														<Button onClick={handleUpgrade}>Upgrade Now</Button>
+														<Button onClick={handleUpgrade} className='bg-yellow-600'>Upgrade Now</Button>
 													</div>
 												) : (
 													<div className="space-y-3">
@@ -321,7 +372,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 																className="flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
 															>
 																<div className="flex items-center gap-3">
-																	<div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">
+																	<div className="h-8 w-8 rounded-full bg-green-400 text-white flex items-center justify-center text-sm font-medium">
 																		{index + 1}
 																	</div>
 																	<span className="font-medium">
@@ -348,12 +399,17 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 											</CardHeader>
 											<CardContent>
 												<div className="flex items-start gap-4">
-													<div className="h-20 w-20 rounded-full bg-muted flex items-center justify-center text-2xl font-bold">
-														{exercise?.instructor?.[0] || "I"}
+													<div className=" relative h-20 w-20 rounded-full bg-muted flex items-center justify-center text-2xl font-bold">
+														<Image 
+															src='/ceo.jpg'
+															fill
+															alt="Sharon Jakisa"
+															className="object-cover rounded-full"
+														/>
 													</div>
 													<div>
 														<h3 className="font-semibold text-lg">
-															{exercise?.instructor || "Sharon Jakisa"}
+															{"Sharon Jakisa"}
 														</h3>
 														<p className="text-sm text-muted-foreground mt-1">
 															Certified fitness trainer with over 10 years of experience in strength training and conditioning. Specializes in building comprehensive workout programs.
@@ -372,7 +428,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 									<CardHeader>
 										<CardTitle>
 											{isLocked ? (
-												<Button className="w-full" onClick={handleUpgrade}>
+												<Button className="w-full bg-yellow-600" onClick={handleUpgrade}>
+													<Lock size={4}/>
 													Upgrade to Access
 												</Button>
 											) : (
@@ -387,7 +444,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 											</h2>
 											<ul className="flex flex-col gap-2 mt-2 text-sm ">
 												{benefitsArr.length > 0 ? benefitsArr.map((b, i) => (
-													<li className="text-muted-foreground" key={i}>{b}</li>
+													<li key={i} className="flex ">
+														<Dot className="size-6 text-gray-500"/>
+														<span className="text-muted-foreground">{b}</span>
+													</li>
 												)) : <li className="text-muted-foreground">No benefits listed.</li>}
 											</ul>
 										</div>

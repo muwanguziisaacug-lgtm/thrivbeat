@@ -1,10 +1,10 @@
-import { Phone, Mail, MessageCircle, MapPin, Clock, Send } from "lucide-react";
+import { Phone, Mail, MessageCircle, MapPin, Clock, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
+export const ContactPage = ({ handleSubmit, formData, handleChange, submitting = false, pending = false }) => {
 	return (
 		<div className="min-h-screen bg-background text-foreground">
 			<div className="py-20">
@@ -163,6 +163,7 @@ export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
 													required
 													value={formData.name}
 													onChange={handleChange}
+													disabled={submitting || pending}
 													className="w-full"
 													placeholder="Enter your full name"
 												/>
@@ -181,6 +182,7 @@ export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
 													required
 													value={formData.email}
 													onChange={handleChange}
+													disabled={submitting || pending}
 													className="w-full"
 													placeholder="Enter your email"
 												/>
@@ -201,6 +203,7 @@ export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
 												required
 												value={formData.subject}
 												onChange={handleChange}
+												disabled={submitting || pending}
 												className="w-full"
 												placeholder="What's this about?"
 											/>
@@ -219,6 +222,7 @@ export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
 												required
 												value={formData.message}
 												onChange={handleChange}
+												disabled={submitting || pending}
 												rows={6}
 												className="w-full"
 												placeholder="Tell us how we can help you..."
@@ -228,9 +232,19 @@ export const ContactPage = ({ handleSubmit, formData, handleChange }) => {
 										<Button
 											type="submit"
 											className="w-full bg-red-600 hover:bg-red-700 text-white text-lg py-3"
+											disabled={submitting || pending}
 										>
-											<Send className="w-5 h-5 mr-2" />
-											Send Message
+											{submitting || pending ? (
+												<>
+													<Loader2 className="w-5 h-5 mr-2 animate-spin" />
+													Sending...
+												</>
+											) : (
+												<>
+													<Send className="w-5 h-5 mr-2" />
+													Send Message
+												</>
+											)}
 										</Button>
 									</form>
 

@@ -162,13 +162,14 @@ export function FileUploader({
 							resolve();
 						} else {
 							reject(new Error("Upload failed"));
-						}
+						}	
 					};
 					xhr.onerror = () => reject(new Error("Upload failed"));
 					xhr.send(file);
 				});
             } catch (err) {
 				toast.error(err.message || "Upload failed");
+				console.log(err)
 				setFileState((s) => ({ ...s, error: true }));
 			} finally {
 				setFileState((s) => ({ ...s, uploading: false }));
