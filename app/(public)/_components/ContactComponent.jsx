@@ -58,7 +58,7 @@ export const ContactPage = ({ handleSubmit, formData, handleChange, submitting =
 											Send us a detailed message
 										</p>
 										<p className="font-semibold  mb-1">
-											sharon.jakisa@yahoo.com
+											thrivbeats@yahoo.com
 										</p>
 										<p className="text-sm text-gray-500">
 											We'll respond within 24 hours

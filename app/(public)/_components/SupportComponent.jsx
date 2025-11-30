@@ -80,7 +80,7 @@ export const SupportPage = ({ searchTerm, setSearchTerm, filteredFaqs, openFaq, 
 									variant="outline"
 									className="border-red-600 text-red-600"
 								>
-									sharon.jakisa@yahoo.com
+									thrivbeats@yahoo.com
 								</Button>
 							</CardContent>
 						</Card>
