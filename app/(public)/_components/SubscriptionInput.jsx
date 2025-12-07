@@ -35,7 +35,10 @@ const SubscriptionInput = () => {
         className="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-red-500"
       />
 
-      <Button onClick={() => handleSubmit()} className='bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors'> Subscribe </Button>
+      <Button 
+        onClick={() => handleSubmit()} 
+        disabled={!email}
+        className='bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors'> Subscribe </Button>
       {/* <input
         type="email"
         placeholder="Enter your email"

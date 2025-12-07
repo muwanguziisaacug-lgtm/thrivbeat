@@ -167,4 +167,196 @@ export async function EmailSubscription(data) {
   }
 }
 
-// define where the user is enrolled or not
+// Testimonial submission
+
+export async function TestimonialForm(data) {
+  const session = await requireSession()
+
+  if (!session) return { success: false, message: 'Not authenticated'}
+  // destructure data,
+  const { name, rating, age, condition, achievement, story, email } = data
+
+  if (!name || !rating || !condition || !achievement || !story || !age || !email) return { success: false, message: 'Please fill the required fields'}
+
+  try {
+      // create testimonial
+      const testimonial = await prisma.testimonail.create({
+        data: {
+          name, 
+          rating: parseInt(rating), 
+          age: parseInt(age), 
+          condition, 
+          achievemnt: achievement, 
+          story,
+          email,
+          userId: session.user.id
+        }
+      });
+
+      if (!testimonial) return { success: false, message: 'Failed to submit'}
+
+      return { success: true, message: 'Submitted Successfully'}
+  } catch (err) {
+    console.error('TestimonialForm error:', err);
+    return { success: false, message: 'UnExpected Error Occured'}
+  }
+
+}
+
+// community actions
+
+// Gallery actions
+
+export async function communityGallery(data) {
+
+  const { caption, category, description, imageUrl, videoUrl} = data
+
+  if (!caption || !category || !description || !imageUrl) return { success: false, message: 'Fill the required fields'}
+  const session = await requireSession();
+
+  if (!session) return { success: false, message: 'Not authenticated'}
+
+  // verify if user is a admin
+  try {
+
+    const gallery = await prisma.gallery.create({
+      data: { 
+        caption, 
+        category, 
+        description, 
+        imageUrl,
+        videoUrl: videoUrl || null
+      }
+    });
+
+    if (!gallery) return { success: false, message: 'Failed to create '}
+
+    return { success: true, message: 'Created successfully'}
+    
+  } catch(err) {
+    return { success: false, message: 'UnExpected Error Occured'}
+  }
+
+}
+
+export async function communityEvents(data) {
+
+  const { title, description, imageUrl, date, time, location, } = data
+
+  if (!title || !description || !imageUrl || !date || !time || !location ) return { success: false, message: 'Fill the required fields'}
+  const session = await requireSession();
+
+  if (!session) return { success: false, message: 'Not authenticated'}
+
+  // verify if user is a admin
+  try {
+
+    const events = await prisma.event.create({
+      data: { title, description, imageUrl, date, time, location }
+    });
+
+    if (!events) return { success: false, message: 'Failed to create '}
+
+    return { success: true, message: 'Created successfully'}
+    
+  } catch(err) {
+    console.log(err.message)
+    return { success: false, message: 'UnExpected Error Occured'}
+  }
+
+}
+export async function communityFeaturedMembers(data) {
+
+  const { name, badge, imageUrl } = data
+
+  if (!name || !badge || !imageUrl) return { success: false, message: 'Fill the required fields'}
+  const session = await requireSession();
+
+  if (!session) return { success: false, message: 'Not authenticated'}
+
+  // verify if user is a admin
+  try {
+
+    const member = await prisma.featuredMember.create({
+      data: { name, badge, imageUrl }
+    });
+
+    if (!member) return { success: false, message: 'Failed to create '}
+
+    return { success: true, message: 'Created successfully'}
+    
+  } catch {
+    return { success: false, message: 'UnExpected Error Occured'}
+  }
+
+}
+
+
+// delete 
+
+export async function deleteGallery(id) {
+
+  if (!id) return { success: false, message: 'Gallery not found'}
+  const session = await requireSession();
+
+  if (!session) return { success: false, message: 'Not authenticated'}
+
+    try {
+
+    const gallery = await prisma.gallery.delete({
+      where: { id }
+    })
+
+    if (!gallery) return { success: false, message: 'Failed to delete '}
+
+    return { success: true, message: 'Deleted successfully'}
+    
+  } catch {
+    return { success: false, message: 'UnExpected Error Occured'}
+  }
+}
+
+export async function deleteEvent(id) {
+
+  if (!id) return { success: false, message: 'Event not found'}
+  const session = await requireSession();
+
+  if (!session) return { success: false, message: 'Not authenticated'}
+
+    try {
+
+    const event = await prisma.event.delete({
+      where: { id }
+    })
+
+    if (!event) return { success: false, message: 'Failed to delete '}
+
+    return { success: true, message: 'Deleted successfully'}
+    
+  } catch {
+    return { success: false, message: 'UnExpected Error Occured'}
+  }
+}
+
+export async function deleteMember(id) {
+
+  if (!id) return { success: false, message: 'Member not found'}
+  const session = await requireSession();
+
+  if (!session) return { success: false, message: 'Not authenticated'}
+
+    try {
+
+    const member = await prisma.featuredMember.delete({
+      where: { id }
+    })
+
+    if (!member) return { success: false, message: 'Failed to delete '}
+
+    return { success: true, message: 'Deleted successfully'}
+    
+  } catch (err) {
+    console.error('deleteMember error', err);
+    return { success: false, message: 'UnExpected Error Occured'}
+  }
+}

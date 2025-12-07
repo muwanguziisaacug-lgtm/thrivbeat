@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const SubmitTestimonialForm = () => {
   const [rating, setRating] = useState(0);
@@ -18,36 +19,62 @@ const SubmitTestimonialForm = () => {
   const [testimonial, setTestimonial] = useState("");
   const [achievement, setAchievement] = useState("");
 
-  const handleSubmit = (e) => {
+  const [form, setForm ] = useState({
+    name: '',
+    email: '',
+    age: '',
+    condition: '',
+    achievement: '',
+    story: '',
+    rating: 0
+  });
+
+  const router = useRouter()
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!rating) {
-      toast({
-        title: "Please select a rating",
-        variant: "destructive",
+
+    try {
+      const res = await fetch('/api/testimonials/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
       });
-      return;
+
+      const data = await res.json();
+
+      if (!data.success) {
+        toast.error(data.message || 'Failed to submit')
+        return;
+      }
+
+      toast.success(data.message || 'Thanks for your support')
+      // Reset form
+      setForm({
+        name: '',
+        email: '',
+        age: '',
+        condition: '',
+        achievement: '',
+        story: '',
+        rating: 0
+      });
+      setTimeout(() => {
+        router.push('/testimonials')
+      }, 1500);
+      
+    } catch (error) {
+      console.error('Submission error:', error);
+      toast.error('UnExpected Error Occurred')
     }
-
-    // Mock submission
-    toast({
-      title: "Thank you for your testimonial!",
-      description: "Your feedback has been submitted successfully.",
-    });
-
-    // Reset form
-    setRating(0);
-    setName("");
-    setAge("");
-    setCondition("");
-    setTestimonial("");
-    setAchievement("");
+    
   };
 
   return (
-    <Card className="max-w-2xl mx-auto">
+    <Card className="max-w-2xl mx-auto mt-10">
       <CardHeader>
-        <CardTitle className="text-2xl">Share Your Success Story</CardTitle>
+        <CardTitle className="text-2xl text-red-600">Share Your Success Story</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -59,17 +86,17 @@ const SubmitTestimonialForm = () => {
                 <motion.button
                   key={star}
                   type="button"
-                  onClick={() => setRating(star)}
+                  onClick={() => setForm({...form, rating: star})}
                   onMouseEnter={() => setHoveredRating(star)}
                   onMouseLeave={() => setHoveredRating(0)}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="focus:outline-none"
+                  className="focus:outline-none "
                 >
                   <Star
                     className={`w-8 h-8 transition-colors ${
                       star <= (hoveredRating || rating)
-                        ? "fill-primary text-primary"
+                        ? "fill-yellow-500 text-yellow-500"
                         : "text-muted-foreground"
                     }`}
                   />
@@ -78,7 +105,7 @@ const SubmitTestimonialForm = () => {
             </div>
             {rating > 0 && (
               <p className="text-sm text-muted-foreground">
-                You rated {rating} out of 5 stars
+                You rated {form.rating} out of 5 stars
               </p>
             )}
           </div>
@@ -88,9 +115,22 @@ const SubmitTestimonialForm = () => {
             <Label htmlFor="name">Your Name *</Label>
             <Input
               id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={form.name}
+              onChange={(e) => setForm({...form, name: e.target.value})}
               placeholder="John Doe"
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div className="space-y-2">
+            <Label htmlFor="email">Your Email *</Label>
+            <Input
+              id="email"
+              type="email"
+              value={form.email}
+              onChange={(e) => setForm({...form, email: e.target.value})}
+              placeholder="john@example.com"
               required
             />
           </div>
@@ -101,21 +141,21 @@ const SubmitTestimonialForm = () => {
             <Input
               id="age"
               type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
+              value={form.age}
+              onChange={(e) => setForm({...form, age: e.target.value})}
               placeholder="35"
               min="1"
               max="120"
             />
           </div>
-
+          
           {/* Condition/Goal */}
           <div className="space-y-2">
             <Label htmlFor="condition">Your Fitness Goal or Condition</Label>
             <Input
               id="condition"
-              value={condition}
-              onChange={(e) => setCondition(e.target.value)}
+              value={form.condition}
+              onChange={(e) => setForm({...form, condition: e.target.value})}
               placeholder="Weight Loss Journey"
             />
           </div>
@@ -125,8 +165,8 @@ const SubmitTestimonialForm = () => {
             <Label htmlFor="achievement">Your Achievement</Label>
             <Input
               id="achievement"
-              value={achievement}
-              onChange={(e) => setAchievement(e.target.value)}
+              value={form.achievement}
+              onChange={(e) => setForm({...form, achievement: e.target.value})}
               placeholder="Lost 30 lbs in 4 months"
             />
           </div>
@@ -136,8 +176,8 @@ const SubmitTestimonialForm = () => {
             <Label htmlFor="testimonial">Your Story *</Label>
             <Textarea
               id="testimonial"
-              value={testimonial}
-              onChange={(e) => setTestimonial(e.target.value)}
+              value={form.testimonial}
+              onChange={(e) => setForm({...form, story: e.target.value})}
               placeholder="Share your experience with ThrivBeat..."
               className="min-h-[120px]"
               required
@@ -145,7 +185,7 @@ const SubmitTestimonialForm = () => {
           </div>
 
           {/* Submit Button */}
-          <Button type="submit" size="lg" className="w-full">
+          <Button type="submit" size="lg" className="w-full bg-red-600 hover:bg-red-700">
             Submit Testimonial
           </Button>
         </form>

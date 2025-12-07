@@ -25,7 +25,7 @@ export default function AccountSettings() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-4/5 mx-auto my-10">
       {/* Profile Information */}
       <Card>
         <CardHeader>
@@ -35,23 +35,23 @@ export default function AccountSettings() {
         <CardContent>
           <form onSubmit={handleSaveProfile} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <div>
+              <div className="space-y-3">
                 <Label htmlFor="firstName">First Name</Label>
                 <Input id="firstName" defaultValue="John" />
               </div>
-              <div>
+              <div className="space-y-3">
                 <Label htmlFor="lastName">Last Name</Label>
                 <Input id="lastName" defaultValue="Doe" />
               </div>
             </div>
-            <div>
+            <div className="space-y-3">
               <Label htmlFor="email">Email</Label>
               <Input id="email" type="email" defaultValue="john@example.com" disabled />
               <p className="text-xs text-muted-foreground mt-1">
                 Contact support to change your email address
               </p>
             </div>
-            <div>
+            <div className="space-y-3">
               <Label htmlFor="phone">Phone Number</Label>
               <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
             </div>
@@ -60,30 +60,7 @@ export default function AccountSettings() {
         </CardContent>
       </Card>
 
-      {/* Change Password */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Change Password</CardTitle>
-          <CardDescription>Update your account password</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleChangePassword} className="space-y-4">
-            <div>
-              <Label htmlFor="currentPassword">Current Password</Label>
-              <Input id="currentPassword" type="password" />
-            </div>
-            <div>
-              <Label htmlFor="newPassword">New Password</Label>
-              <Input id="newPassword" type="password" />
-            </div>
-            <div>
-              <Label htmlFor="confirmPassword">Confirm New Password</Label>
-              <Input id="confirmPassword" type="password" />
-            </div>
-            <Button type="submit">Update Password</Button>
-          </form>
-        </CardContent>
-      </Card>
+
 
       {/* Notification Preferences */}
       <Card>

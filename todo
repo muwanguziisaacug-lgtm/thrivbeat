@@ -1,15 +1,19 @@
 Legal pages (terms, privacy, policy, disclaimer, accessbility)
-
-community page
-
+send emails(email integration)
+community page()
+popup display
 schedule call page functionality
-
-live account stripe connection
-
-user subscription check period or expiration
-
-
+user account dashboard
 if the user is subscribed, remove the get started in the header
-
-
 create the testimonial page
+
+
+email templates
+    schedule call
+    support
+    login or register
+
+
+
+exercise 
+    search functionality and category

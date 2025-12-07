@@ -21,7 +21,7 @@ export default function BillingInfo() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-4/5 mx-auto my-10">
       {/* Current Subscription */}
       <Card>
         <CardHeader>

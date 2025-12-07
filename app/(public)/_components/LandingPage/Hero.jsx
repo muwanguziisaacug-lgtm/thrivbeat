@@ -39,7 +39,7 @@ const Hero = () => {
 						animate="visible"
 					>
 						<motion.h1
-							className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight text-center"
+							className="text-4xl md:text-6xl lg:text-6xl font-bold text-white leading-tight text-center"
 							variants={itemVariants}
 							transition={{ duration: 0.6 }}
 						>
@@ -47,7 +47,7 @@ const Hero = () => {
 							<span className="text-red-600">for You</span>
 						</motion.h1>
 						<motion.p
-							className=" text-base lg:text-xl text-white leading-relaxed max-w-3xl text-center p-3 lg:mt-10"
+							className=" text-xl lg:text-3xl text-white leading-relaxed max-w-3xl text-center p-3 lg:mt-10"
 							variants={itemVariants}
 							transition={{ duration: 0.6 }}
 						>
@@ -103,7 +103,7 @@ const Hero = () => {
 								>
 									<Button
 										size="lg"
-										className="bg-red-600 hover:bg-red-700 text-white text-lg px-8 py-3"
+										className="bg-red-600 hover:bg-red-700 text-white text-lg px-8 py-4"
 									>
 										Start Your Journey
 									</Button>

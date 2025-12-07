@@ -55,12 +55,12 @@ export function UserDropDown({ session }) {
 		},
 		{
 			label: "Account",
-			href: "/dashboard/accountsettings",
+			href: "/dashboard/account",
 			icon: <Layers2Icon size={16} className="opacity-60 mr-2" />,
 		},
 		{
-			label: "Dashboard",
-			href: "/dashboard/student",
+			label: "Billing",
+			href: "/dashboard/billing",
 			icon: <BookOpenIcon size={16} className="opacity-60 mr-2" />,
 		},
 		{

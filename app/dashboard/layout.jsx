@@ -1,6 +1,8 @@
 import '../globals.css'
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
+import Header from '../(public)/_components/Header';
+import Footer from '../(public)/_components/Footer';
 
 export const metadata = {
 title: "ThrivBeat",
@@ -17,7 +19,9 @@ export default function RootLayout({ children }) {
                     enableSystem
                     disableTransitionOnChange
                 >
+                    <Header />
                     <main className='min-h-screen'>{children}</main>
+                    <Footer />
                     <Toaster />
                 </ThemeProvider>
             </body>

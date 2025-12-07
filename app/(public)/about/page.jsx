@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import About from "./component/About";
 
 // AboutUs.jsx
 // Pure Next.js (App Router) compatible React component using Tailwind CSS + Framer Motion.
@@ -9,218 +10,219 @@ import { motion } from "framer-motion";
 
 export default function AboutUs() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-900">
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        {/* Hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="grid gap-10 md:grid-cols-2 items-center"
-        >
-          <div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
-              ThrivBeats
-            </h1>
-            <p className="mt-4 text-lg sm:text-xl text-gray-700">
-              Stay active, strong and confident — from the comfort of your home.
-              Clinically-informed cardiac exercise, personalised plans and ongoing support.
-            </p>
+    <About />
+    // <main className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-900">
+    //   <section className="max-w-6xl mx-auto px-6 py-16">
+    //     {/* Hero */}
+    //     <motion.div
+    //       initial={{ opacity: 0, y: 14 }}
+    //       animate={{ opacity: 1, y: 0 }}
+    //       transition={{ duration: 0.6 }}
+    //       className="grid gap-10 md:grid-cols-2 items-center"
+    //     >
+    //       <div>
+    //         <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
+    //           ThrivBeats
+    //         </h1>
+    //         <p className="mt-4 text-lg sm:text-xl text-gray-700">
+    //           Stay active, strong and confident — from the comfort of your home.
+    //           Clinically-informed cardiac exercise, personalised plans and ongoing support.
+    //         </p>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="/login"
-                className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-3 text-white font-semibold shadow-lg hover:scale-[1.01] transform transition"
-              >
-                Join ThrivBeats
-              </a>
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-3 text-sm font-medium hover:bg-gray-50"
-              >
-                Contact us
-              </a>
-            </div>
+    //         <div className="mt-6 flex flex-wrap gap-3">
+    //           <a
+    //             href="/login"
+    //             className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 py-3 text-white font-semibold shadow-lg hover:scale-[1.01] transform transition"
+    //           >
+    //             Join ThrivBeats
+    //           </a>
+    //           <a
+    //             href="/contact"
+    //             className="inline-flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-3 text-sm font-medium hover:bg-gray-50"
+    //           >
+    //             Contact us
+    //           </a>
+    //         </div>
 
-            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              <StatItem label="Weekly classes" value="Pre-recorded + Live" />
-              <StatItem label="Support" value="Remote + In-person" />
-              <StatItem label="Check-ins" value="Every 2 weeks" />
-              <StatItem label="Lead" value="Sharon Jakisa" />
-            </div>
-          </div>
+    //         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+    //           <StatItem label="Weekly classes" value="Pre-recorded + Live" />
+    //           <StatItem label="Support" value="Remote + In-person" />
+    //           <StatItem label="Check-ins" value="Every 2 weeks" />
+    //           <StatItem label="Lead" value="Sharon Jakisa" />
+    //         </div>
+    //       </div>
 
-          <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl">
-            <Image
-              src="/comm.jpg"
-              alt="Group doing gentle exercise"
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-            />
-          </div>
-        </motion.div>
+    //       <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl">
+    //         <Image
+    //           src="/comm.jpg"
+    //           alt="Group doing gentle exercise"
+    //           fill
+    //           style={{ objectFit: "cover" }}
+    //           sizes="(max-width: 768px) 100vw, 50vw"
+    //           priority
+    //         />
+    //       </div>
+    //     </motion.div>
 
-        {/* What we offer */}
-        <section className="mt-16">
-          <motion.h2
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-2xl font-bold"
-          >
-            What we offer
-          </motion.h2>
+    //     {/* What we offer */}
+    //     <section className="mt-16">
+    //       <motion.h2
+    //         initial={{ opacity: 0, x: -10 }}
+    //         animate={{ opacity: 1, x: 0 }}
+    //         transition={{ delay: 0.1 }}
+    //         className="text-2xl font-bold"
+    //       >
+    //         What we offer
+    //       </motion.h2>
 
-          <div className="mt-6 grid gap-6 md:grid-cols-4">
-            <OfferCard
-              title="Tailored weekly classes"
-              desc={`Pre-recorded and live weekly cardiac exercise classes — chair-based or standing — tailored to your abilities and goals.`}
-            />
+    //       <div className="mt-6 grid gap-6 md:grid-cols-4">
+    //         <OfferCard
+    //           title="Tailored weekly classes"
+    //           desc={`Pre-recorded and live weekly cardiac exercise classes — chair-based or standing — tailored to your abilities and goals.`}
+    //         />
 
-            <OfferCard
-              title="Exercise prescriptions"
-              desc={`Clear, easy-to-follow exercise prescriptions with short demonstration videos so you can practise safely at home.`}
-            />
-            <OfferCard
-              title="Sports Massage Therapist"
-              desc={`Clear, easy-to-follow exercise prescriptions with short demonstration videos so you can practise safely at home.`}
-            />
+    //         <OfferCard
+    //           title="Exercise prescriptions"
+    //           desc={`Clear, easy-to-follow exercise prescriptions with short demonstration videos so you can practise safely at home.`}
+    //         />
+    //         <OfferCard
+    //           title="Sports Massage Therapist"
+    //           desc={`Clear, easy-to-follow exercise prescriptions with short demonstration videos so you can practise safely at home.`}
+    //         />
 
-            <OfferCard
-              title="Ongoing support"
-              desc={`Remote support via phone and Zoom, plus optional in-person sessions focusing on functional strength, balance and flexibility.`}
-            />
-          </div>
-        </section>
+    //         <OfferCard
+    //           title="Ongoing support"
+    //           desc={`Remote support via phone and Zoom, plus optional in-person sessions focusing on functional strength, balance and flexibility.`}
+    //         />
+    //       </div>
+    //     </section>
 
-        {/* Who we support */}
-        <section className="mt-16">
-          <motion.h2
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.15 }}
-            className="text-2xl font-bold"
-          >
-            Who we support
-          </motion.h2>
+    //     {/* Who we support */}
+    //     <section className="mt-16">
+    //       <motion.h2
+    //         initial={{ opacity: 0, x: -10 }}
+    //         animate={{ opacity: 1, x: 0 }}
+    //         transition={{ delay: 0.15 }}
+    //         className="text-2xl font-bold"
+    //       >
+    //         Who we support
+    //       </motion.h2>
 
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            <Card>
-              <h3 className="text-lg font-semibold">Ideal participants</h3>
-              <ul className="mt-3 space-y-2 text-gray-700 list-disc list-inside">
-                <li>People looking to exercise safely at home with professional supervision.</li>
-                <li>Participants doing gentle to varied-intensity workouts (low to high).</li>
-                <li>Individuals stable on current medications with no recent changes.</li>
-              </ul>
-            </Card>
+    //       <div className="mt-6 grid gap-6 md:grid-cols-2">
+    //         <Card>
+    //           <h3 className="text-lg font-semibold">Ideal participants</h3>
+    //           <ul className="mt-3 space-y-2 text-gray-700 list-disc list-inside">
+    //             <li>People looking to exercise safely at home with professional supervision.</li>
+    //             <li>Participants doing gentle to varied-intensity workouts (low to high).</li>
+    //             <li>Individuals stable on current medications with no recent changes.</li>
+    //           </ul>
+    //         </Card>
 
-            <Card>
-              <h3 className="text-lg font-semibold">Conditions we commonly work with</h3>
-              <ul className="mt-3 space-y-2 text-gray-700 list-disc list-inside">
-                <li>COPD, hypertension, asthma, diabetes</li>
-                <li>Osteoporosis, arthritis, obesity</li>
-                <li>Anxiety, depression and other long-term conditions (clinician-supervised)</li>
-                <li className="font-semibold text-sm text-amber-700">Not suitable for unstable heart conditions.</li>
-              </ul>
-            </Card>
-          </div>
-        </section>
+    //         <Card>
+    //           <h3 className="text-lg font-semibold">Conditions we commonly work with</h3>
+    //           <ul className="mt-3 space-y-2 text-gray-700 list-disc list-inside">
+    //             <li>COPD, hypertension, asthma, diabetes</li>
+    //             <li>Osteoporosis, arthritis, obesity</li>
+    //             <li>Anxiety, depression and other long-term conditions (clinician-supervised)</li>
+    //             <li className="font-semibold text-sm text-amber-700">Not suitable for unstable heart conditions.</li>
+    //           </ul>
+    //         </Card>
+    //       </div>
+    //     </section>
 
-        {/* Approach & Mission */}
-        <section className="mt-16 grid gap-8 lg:grid-cols-2">
-          <div>
-            <motion.h2
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-2xl font-bold"
-            >
-              Our approach
-            </motion.h2>
-            <p className="mt-4 text-gray-700">
-              Clinically guided, evidence-based sessions that are safe, structured and progressive. We tailor movement plans to each participant to rebuild confidence, strength and resilience.
-            </p>
+    //     {/* Approach & Mission */}
+    //     <section className="mt-16 grid gap-8 lg:grid-cols-2">
+    //       <div>
+    //         <motion.h2
+    //           initial={{ opacity: 0, x: -8 }}
+    //           animate={{ opacity: 1, x: 0 }}
+    //           className="text-2xl font-bold"
+    //         >
+    //           Our approach
+    //         </motion.h2>
+    //         <p className="mt-4 text-gray-700">
+    //           Clinically guided, evidence-based sessions that are safe, structured and progressive. We tailor movement plans to each participant to rebuild confidence, strength and resilience.
+    //         </p>
 
-            <ul className="mt-6 grid gap-3">
-              <li className="flex items-start gap-3">
-                <CheckIcon />
-                <span>Personalised exercise prescriptions with video guidance.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckIcon />
-                <span>Regular check-ins every two weeks to track progress.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckIcon />
-                <span>Holistic support focusing on both physical and mental wellbeing.</span>
-              </li>
-            </ul>
-          </div>
+    //         <ul className="mt-6 grid gap-3">
+    //           <li className="flex items-start gap-3">
+    //             <CheckIcon />
+    //             <span>Personalised exercise prescriptions with video guidance.</span>
+    //           </li>
+    //           <li className="flex items-start gap-3">
+    //             <CheckIcon />
+    //             <span>Regular check-ins every two weeks to track progress.</span>
+    //           </li>
+    //           <li className="flex items-start gap-3">
+    //             <CheckIcon />
+    //             <span>Holistic support focusing on both physical and mental wellbeing.</span>
+    //           </li>
+    //         </ul>
+    //       </div>
 
-          <div>
-            <motion.h2 initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} className="text-2xl font-bold">
-              Our mission
-            </motion.h2>
-            <p className="mt-4 text-gray-700">
-              More than fitness — ThrivBeats empowers you with clinically-informed cardiac exercise plans so you can understand and take control of your heart health.
-            </p>
+    //       <div>
+    //         <motion.h2 initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} className="text-2xl font-bold">
+    //           Our mission
+    //         </motion.h2>
+    //         <p className="mt-4 text-gray-700">
+    //           More than fitness — ThrivBeats empowers you with clinically-informed cardiac exercise plans so you can understand and take control of your heart health.
+    //         </p>
 
-            <div className="mt-6">
-              <blockquote className="rounded-lg border-l-4 border-teal-400 bg-white p-4 shadow-sm">
-                <p className="text-sm text-gray-700">“We aim to complement existing healthcare services and help reduce readmission rates — not replace medical treatment.”</p>
-              </blockquote>
-            </div>
-          </div>
-        </section>
+    //         <div className="mt-6">
+    //           <blockquote className="rounded-lg border-l-4 border-teal-400 bg-white p-4 shadow-sm">
+    //             <p className="text-sm text-gray-700">“We aim to complement existing healthcare services and help reduce readmission rates — not replace medical treatment.”</p>
+    //           </blockquote>
+    //         </div>
+    //       </div>
+    //     </section>
 
-        {/* Team */}
-        <section className="mt-16">
-          <motion.h2 initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} className="text-2xl font-bold">
-            Meet the team
-          </motion.h2>
+    //     {/* Team */}
+    //     <section className="mt-16">
+    //       <motion.h2 initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} className="text-2xl font-bold">
+    //         Meet the team
+    //       </motion.h2>
 
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-            <TeamCard
-              name="Sharon Jakisa"
-              title="Specialist Cardiac Exercise Instructor"
-              bio="Lead clinician and specialist cardiac exercise instructor with experience delivering safe, progressive exercise programmes."
-              src='/ceo.jpg'
-            />
+    //       <div className="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+    //         <TeamCard
+    //           name="Sharon Jakisa"
+    //           title="Specialist Cardiac Exercise Instructor"
+    //           bio="Lead clinician and specialist cardiac exercise instructor with experience delivering safe, progressive exercise programmes."
+    //           src='/ceo.jpg'
+    //         />
 
-            <TeamCard 
-              name="Volunteer Team" 
-              title="Trained Volunteers" 
-              bio="Support the delivery of classes and provide check-in support to participants."
-              src='/comm.jpg'
-              />
+    //         <TeamCard 
+    //           name="Volunteer Team" 
+    //           title="Trained Volunteers" 
+    //           bio="Support the delivery of classes and provide check-in support to participants."
+    //           src='/comm.jpg'
+    //           />
 
-            <TeamCard 
-              name="Clinical Advisors" 
-              title="Healthcare Partners" 
-              bio="Provide clinical oversight and assist with participant triage and safety protocols." 
-              src='/ceo.jpg'
-              />
-          </div>
-        </section>
+    //         <TeamCard 
+    //           name="Clinical Advisors" 
+    //           title="Healthcare Partners" 
+    //           bio="Provide clinical oversight and assist with participant triage and safety protocols." 
+    //           src='/ceo.jpg'
+    //           />
+    //       </div>
+    //     </section>
 
-        {/* Disclaimer & CTA */}
-        <section className="mt-16 mb-24 grid gap-6 md:grid-cols-2 items-center">
-          <div>
-            <h3 className="text-lg font-semibold">Important disclaimer</h3>
-            <p className="mt-3 text-gray-700">
-              ThrivBeats complements healthcare services (including NHS) and is not a replacement for medical treatment. Participants should continue to follow their healthcare provider's advice. A PAR-Q form and clearance from a healthcare provider will be requested before enrollment.
-            </p>
-          </div>
+    //     {/* Disclaimer & CTA */}
+    //     <section className="mt-16 mb-24 grid gap-6 md:grid-cols-2 items-center">
+    //       <div>
+    //         <h3 className="text-lg font-semibold">Important disclaimer</h3>
+    //         <p className="mt-3 text-gray-700">
+    //           ThrivBeats complements healthcare services (including NHS) and is not a replacement for medical treatment. Participants should continue to follow their healthcare provider's advice. A PAR-Q form and clearance from a healthcare provider will be requested before enrollment.
+    //         </p>
+    //       </div>
 
-          <div id="contact" className="text-right">
-            <a href="/login" className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 px-6 py-3 text-white font-semibold shadow-lg">
-              Register now
-            </a>
-          </div>
-        </section>
-      </section>
-    </main>
+    //       <div id="contact" className="text-right">
+    //         <a href="/login" className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 px-6 py-3 text-white font-semibold shadow-lg">
+    //           Register now
+    //         </a>
+    //       </div>
+    //     </section>
+    //   </section>
+    // </main>
   );
 }
 

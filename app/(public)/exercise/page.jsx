@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { Play, Clock, CheckCircle, Lock } from "lucide-react";
+import { Play, Clock, CheckCircle, Lock, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,6 +17,7 @@ export default function ExercisesPage() {
   const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
+  const [error, setError ] = useState(null)
   const pathname = usePathname();
   const router = useRouter();
 
@@ -29,12 +30,14 @@ export default function ExercisesPage() {
 		const response = await fetchExercises();
 		if (!response.success) {
 		  toast.error(response.message || "Failed to load exercises");
+		  setError(response.message)
 		  return;
 		}
 		if (mounted) setExercises(response.allCourses || []);
 	  } catch (err) {
 		console.error(err);
 		toast.error("Failed to load exercises");
+		setError('Failed to load Exercises')
 	  } finally {
 		if (mounted) setLoading(false);
 	  }
@@ -98,7 +101,15 @@ export default function ExercisesPage() {
 			</motion.div>
 		  ))}
 		</motion.div>
-
+		{error && 
+			<div className="flex flex-col justify-center items-center w-full gap-4">
+				<p className="text-red-500 text-center font-medium text-xl ">{error}</p>
+				<span className="flex flex-col items-center text-red-400">
+					<RefreshCw className="cursor-pointer size-10 mt-5" onClick={() => router.refresh()}/>
+					<p>Refresh</p>
+				</span>
+			</div>
+		}
 		{loading ? (
 		  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 			{Array.from({ length: 6 }).map((_, i) => (
@@ -137,73 +148,75 @@ export default function ExercisesPage() {
 		  <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" variants={containerVariants} initial="hidden" animate="visible">
 			<AnimatePresence>
 			  {filteredExercises.map((exercise) => (
-				<motion.div key={exercise.id} variants={itemVariants} initial="hidden" animate="visible" transition={{ duration: 0.35 }}>
-				  <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 pt-0">
-					<div className="relative w-full h-48 object-cove">
-						<Image 
-							src={ exercise.thumbnailKey }
-							alt={exercise.title}
-							fill
+				<>
+					<motion.div key={exercise.id} variants={itemVariants} initial="hidden" animate="visible" transition={{ duration: 0.35 }}>
+					<Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 pt-0">
+						<div className="relative w-full h-48 object-cove">
+							<Image 
+								src={ exercise.thumbnailKey }
+								alt={exercise.title}
+								fill
 
-						/>
-					  {/* <img src={exercise.thumbnailKey} alt={exercise.title} className="w-full h-48 object-cover" /> */}
-					  {exercise.isLocked && (
-						<div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-						  <Lock className="w-8 h-8 text-white" />
-						</div>
-					  )}
-					  {exercise.completed && !exercise.isLocked && (
-						<div className="absolute top-4 right-4 bg-green-600 rounded-full p-2">
-						  <CheckCircle className="w-4 h-4 text-white" />
-						</div>
-					  )}
-					  <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm flex items-center">
-						<Clock className="w-4 h-4 mr-1" />
-						{exercise.duration} mins
-					  </div>
-					</div>
-
-					<CardHeader>
-					  <CardTitle className="text-lg">{exercise.title}</CardTitle>
-					  <div className="flex items-center justify-between text-sm text-muted-foreground">
-						<span className="bg-gray-100 px-2 py-1 rounded">{exercise.level}</span>
-					  </div>
-					</CardHeader>
-
-					<CardContent>
-					  <p className="text-muted-foreground mb-4 line-clamp-2">{exercise.description}</p>
-
-					  <div>
-						{exercise.isLocked ? (
-						  <Button
-							className="w-full bg-yellow-600 text-white"
-							// onClick={async () => {
-							//   try {
-							// 	const res = await fetch('/api/auth/status');
-							// 	const json = await res.json();
-							// 	if (!json?.success) router.push(`/login?next=/pricing`);
-							// 	else router.push('/pricing');
-							//   } catch (err) {
-							// 	console.error(err);
-							// 	router.push('/pricing');
-							//   }
-							// }}
-							onClick={ () => router.push(`/exercise/${exercise.id}/view`)}
-						  >
-							<Lock className="w-4 h-4 mr-2" /> Upgrade to Access
-						  </Button>
-						) : (
-						  <Link href={`/exercise/${exercise.id}/view`}>
-							<Button className="w-full bg-red-600 hover:bg-red-700 text-white">
-							  <Play className="w-4 h-4 mr-2" />
-							  {exercise.completed ? 'Watch Again' : 'Start Exercise'}
-							</Button>
-						  </Link>
+							/>
+						{/* <img src={exercise.thumbnailKey} alt={exercise.title} className="w-full h-48 object-cover" /> */}
+						{exercise.isLocked && (
+							<div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+							<Lock className="w-8 h-8 text-white" />
+							</div>
 						)}
-					  </div>
-					</CardContent>
-				  </Card>
-				</motion.div>
+						{exercise.completed && !exercise.isLocked && (
+							<div className="absolute top-4 right-4 bg-green-600 rounded-full p-2">
+							<CheckCircle className="w-4 h-4 text-white" />
+							</div>
+						)}
+						<div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm flex items-center">
+							<Clock className="w-4 h-4 mr-1" />
+							{exercise.duration} mins
+						</div>
+						</div>
+
+						<CardHeader>
+						<CardTitle className="text-lg">{exercise.title}</CardTitle>
+						<div className="flex items-center justify-between text-sm text-muted-foreground">
+							<span className="bg-gray-100 px-2 py-1 rounded">{exercise.level}</span>
+						</div>
+						</CardHeader>
+
+						<CardContent>
+						<p className="text-muted-foreground mb-4 line-clamp-2">{exercise.description}</p>
+
+						<div>
+							{exercise.isLocked ? (
+							<Button
+								className="w-full bg-yellow-600 text-white"
+								// onClick={async () => {
+								//   try {
+								// 	const res = await fetch('/api/auth/status');
+								// 	const json = await res.json();
+								// 	if (!json?.success) router.push(`/login?next=/pricing`);
+								// 	else router.push('/pricing');
+								//   } catch (err) {
+								// 	console.error(err);
+								// 	router.push('/pricing');
+								//   }
+								// }}
+								onClick={ () => router.push(`/exercise/${exercise.id}/view`)}
+							>
+								<Lock className="w-4 h-4 mr-2" /> Upgrade to Access
+							</Button>
+							) : (
+							<Link href={`/exercise/${exercise.id}/view`}>
+								<Button className="w-full bg-red-600 hover:bg-red-700 text-white">
+								<Play className="w-4 h-4 mr-2" />
+								{exercise.completed ? 'Watch Again' : 'Start Exercise'}
+								</Button>
+							</Link>
+							)}
+						</div>
+						</CardContent>
+					</Card>
+					</motion.div>
+				</>
 			  ))}
 			</AnimatePresence>
 		  </motion.div>
