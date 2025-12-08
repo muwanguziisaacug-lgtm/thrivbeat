@@ -66,7 +66,6 @@ const EditExercise = () => {
 		setBenefits(benefits.filter((_, i) => i !== index));
     };
     
-    console.log(title)
 
     useEffect(() => {
         setLoading(true);
@@ -78,7 +77,6 @@ const EditExercise = () => {
                     return;
                 }
                 const data = response.exercise;
-                console.log(data)
                 setExercise(data);
                 setTitle(data.title || "");
                 setDescription(data.description || "");
@@ -93,7 +91,6 @@ const EditExercise = () => {
                 setThumbnailKey(data.thumbnailKey || "");
                 setVideoKey(data.videoKey || "");
             } catch (err) {
-                console.log(err);
                 toast.error("Internal Server Error");
             } finally {
                 setLoading(false);

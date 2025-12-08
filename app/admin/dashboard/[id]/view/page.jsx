@@ -36,7 +36,6 @@ const PreviewExercise = () => {
     const navigate = useRouter()
 
 
-    console.log(exercise)
 
     useEffect(() => {
         setLoading(true)

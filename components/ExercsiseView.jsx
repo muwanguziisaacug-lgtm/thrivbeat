@@ -45,7 +45,6 @@ export default function CourseView() {
         loadExercise()
     });
     
-    console.log(exercise)
 
 	// Mock data
 	const course = {

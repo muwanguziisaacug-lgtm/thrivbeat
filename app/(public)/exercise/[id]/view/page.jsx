@@ -106,7 +106,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 						else {
 							try { bodyText = await res.text(); } catch (e) { bodyText = null; }
 						}
-						console.error('video-url fetch failed', { status: res.status, statusText: res.statusText, body: bodyText });
 
 						const errMsg = (json && json.error) || (bodyText && bodyText.toString()) || 'Failed to get video url';
 						if (typeof errMsg === 'string' && errMsg.includes('Not authenticated')) {

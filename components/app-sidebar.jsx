@@ -130,7 +130,6 @@ export function AppSidebar({
 
     const { data: session } = authClient.useSession()
 
-    console.log(session)
 
 
 

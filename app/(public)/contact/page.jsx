@@ -48,7 +48,6 @@ const Contact = () => {
         await fetchPromise;
         setFormData({ name: '', email: '', subject: '', message: '' });
       } catch (err) {
-        console.error('Contact submit error', err);
       } finally {
         setSubmitting(false);
       }

@@ -23,7 +23,6 @@ const Testimonials = () => {
           setCurrentIndex(0);
         }
       } catch (error) {
-        console.error('Error fetching testimonials:', error);
       } finally {
         setLoading(false);
       }

@@ -67,7 +67,6 @@ const Community = () => {
         })));
       }
     } catch (err) {
-      console.error('fetchCommunityData error', err);
     } finally {
       setLoading(false);
     }

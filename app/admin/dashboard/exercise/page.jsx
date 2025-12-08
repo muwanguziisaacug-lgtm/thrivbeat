@@ -24,7 +24,6 @@ const Exercise = () => {
 		async function loadExercises() {
 			try {
 				const response = await getExercises();
-				console.log(response);
 				if (!response.success)
 					toast.error(response.message || "Failed to list Exercises");
 				const data = response.exercises;
@@ -40,7 +39,6 @@ const Exercise = () => {
 		loadExercises();
 	}, []);
 
-	console.log(exercises);
 
 	return (
 		<div className="mt-20 ">

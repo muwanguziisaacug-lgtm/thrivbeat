@@ -29,7 +29,6 @@ export async function POST(req) {
 			react: SupportEmailTemplate({ name: parsed.name, email: parsed.email, subject: parsed.subject, message: parsed.message })
 		})
 
-		console.log(' Email sent')
 
 		return NextResponse.json({ success: true, id: created.id });
 	} catch (err) {

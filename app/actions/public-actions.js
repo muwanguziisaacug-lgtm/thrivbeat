@@ -58,7 +58,6 @@ export async function fetchExercises() {
 
     return { success: true, allCourses: mapped };
   } catch (error) {
-    console.log(error);
     return { success: false, message: "Failed to load Exercises" };
   }
 }
@@ -120,7 +119,6 @@ export async function getExercise(exId) {
 
     return { success: true, exercise };
   } catch (err) {
-    console.log(err);
     return { success: false, message: "UnExpected Error Occured" };
   }
 }
@@ -260,7 +258,6 @@ export async function communityEvents(data) {
     return { success: true, message: 'Created successfully'}
     
   } catch(err) {
-    console.log(err.message)
     return { success: false, message: 'UnExpected Error Occured'}
   }
 

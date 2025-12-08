@@ -53,7 +53,6 @@ export async function POST(req) {
     if (!plan || !period) {
       return NextResponse.json({ error: 'Missing plan or period' }, { status: 400 });
     }
-  console.log('[checkout] request body:', { plan, period, providedUserId: body.userId });
 
   // Try to obtain the logged-in user's id from the server session first
     let userId = undefined;

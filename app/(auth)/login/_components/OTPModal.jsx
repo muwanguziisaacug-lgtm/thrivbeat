@@ -34,7 +34,7 @@ const OtpModal = ({accountId, email,}) => {
   const redirectTo = searchParams.get('redirectTo') || '/dashboard';
 
   const handleSubmit = async () => {
-    console.log('hello')
+    
   }
 
   const handleResendOtp = async () => {

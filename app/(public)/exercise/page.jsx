@@ -35,7 +35,6 @@ export default function ExercisesPage() {
 		}
 		if (mounted) setExercises(response.allCourses || []);
 	  } catch (err) {
-		console.error(err);
 		toast.error("Failed to load exercises");
 		setError('Failed to load Exercises')
 	  } finally {

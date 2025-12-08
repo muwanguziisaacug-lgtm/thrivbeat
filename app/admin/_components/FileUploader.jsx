@@ -169,7 +169,6 @@ export function FileUploader({
 				});
             } catch (err) {
 				toast.error(err.message || "Upload failed");
-				console.log(err)
 				setFileState((s) => ({ ...s, error: true }));
 			} finally {
 				setFileState((s) => ({ ...s, uploading: false }));

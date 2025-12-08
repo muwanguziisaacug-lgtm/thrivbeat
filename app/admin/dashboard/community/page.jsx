@@ -169,7 +169,6 @@ const CommunityAdmin = () => {
         body: JSON.stringify({ name: mName, badge: mBadge, imageUrl: mImageUrl })
       });
       const json = await res.json();
-      console.log(json)
 
       if (json?.success) {
         toast.message(json?.message)

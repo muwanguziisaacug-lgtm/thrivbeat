@@ -21,7 +21,6 @@ const UserTable = () => {
             }
         ]
     }
-    console.log(tableContent.header)
     return (
         <div>
             <Table>

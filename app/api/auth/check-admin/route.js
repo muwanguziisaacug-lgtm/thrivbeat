@@ -9,7 +9,6 @@ export async function GET() {
     try {
     const session = await requireSession()
 
-      console.log(session)
 
       if(!session) return NextResponse.json({ isAdmin: false}, { status: 500 });
       // Get session and user data

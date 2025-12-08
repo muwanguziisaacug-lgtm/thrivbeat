@@ -89,7 +89,6 @@ export async function getExercises() {
         return { success: true, exercises }
 
     } catch (error) {
-            console.log(error.message)
 			return { success: false, message: "Internal Server Error" };
 		}
 }
@@ -111,7 +110,6 @@ export async function getExercise( exId ) {
         return { success: true, exercise }
     }
     catch (err) {
-        console.log(err.message)
         return { success: false, message: 'UnExpected Error Occurred'}
     }
 }
@@ -156,7 +154,6 @@ export async function updateExercise({
         });
         return { success: true, exercise: updated };
     } catch (err) {
-        console.log(err.message);
         return { success: false, message: err.message || "Failed to update exercise" };
     }
 }

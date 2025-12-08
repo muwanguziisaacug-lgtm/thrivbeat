@@ -23,7 +23,6 @@ const About = () => {
           setGallery(data.gallery.slice(0, 6));
         }
       } catch (err) {
-        console.error('Error fetching gallery:', err);
       } finally {
         setGalleryLoading(false);
       }
@@ -36,61 +35,29 @@ const About = () => {
       icon: Heart,
       title: "Heart-Centered Approach",
       description: "Every exercise is designed with cardiovascular health in mind, perfect for post-heart attack recovery and ongoing heart wellness.",
-      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=300&fit=crop"
+      image: "/01.jpg"
     },
     {
       icon: Target,
       title: "Condition-Specific Programs",
       description: "Tailored routines for managing hypertension, type 2 diabetes, arthritis, and other chronic conditions with safety as our priority.",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop"
+      image: "/02.jpg"
     },
     {
       icon: Users,
       title: "Expert Guidance",
       description: "Led by certified fitness professionals who specialize in mature adult health and chronic condition management.",
-      image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&h=300&fit=crop"
+      image: "/03.jpg"
     },
     {
       icon: Award,
       title: "Proven Results",
       description: "Join thousands of adults who have improved their strength, mobility, and confidence through our programs.",
-      image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop"
+      image: "/04.jpg"
     }
   ];
 
-  const team = [
-    {
-      name: "Dr. Sarah Mitchell",
-      role: "Founder & Lead Instructor",
-      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop",
-      bio: "Cardiologist with 20+ years experience in cardiac rehabilitation"
-    },
-    {
-      name: "Michael Torres",
-      role: "Senior Fitness Coach",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
-      bio: "Certified personal trainer specializing in mature adult fitness"
-    },
-    {
-      name: "Dr. Emily Chen",
-      role: "Nutrition Specialist",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop",
-      bio: "Registered dietitian focused on heart-healthy nutrition"
-    },
-    {
-      name: "James Williams",
-      role: "Physical Therapist",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop",
-      bio: "Expert in mobility and chronic pain management"
-    }
-  ];
 
-  const stats = [
-    { value: "10,000+", label: "Active Members" },
-    { value: "500+", label: "Video Lessons" },
-    { value: "15+", label: "Expert Instructors" },
-    { value: "98%", label: "Satisfaction Rate" }
-  ];
 
   const values = [
     { icon: Shield, title: "Safety First", description: "Every exercise is designed with your safety and comfort in mind" },
@@ -99,14 +66,6 @@ const About = () => {
     { icon: Heart, title: "Compassionate Care", description: "We understand the unique challenges of managing chronic conditions" }
   ];
 
-  const galleryImages = [
-    { url: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop", caption: "Gentle Yoga Sessions" },
-    { url: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&h=400&fit=crop", caption: "Strength Training" },
-    { url: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&h=400&fit=crop", caption: "Group Classes" },
-    { url: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600&h=400&fit=crop", caption: "Personal Training" },
-    { url: "https://images.unsplash.com/photo-1549576490-b0b4831ef60a?w=600&h=400&fit=crop", caption: "Cardio Workouts" },
-    { url: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop", caption: "Flexibility Training" }
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -115,10 +74,10 @@ const About = () => {
       <section className="relative py-24 md:py-32 overflow-hidden">
         <div className="absolute inset-0 ">
           <Image
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&h=800&fit=crop"
+            src="/05.jpg"
             fill
             alt="ThrivBeat fitness"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/80" />
         </div>
@@ -145,26 +104,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      {/* <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-4xl md:text-5xl font-bold text-primary mb-2">{stat.value}</div>
-                <div className="text-muted-foreground">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
       {/* Mission Section */}
       <section className="py-20 px-5 lg:px-20">
@@ -207,7 +146,7 @@ const About = () => {
               className="relative"
             >
               <img
-                src={"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop"}
+                src={"/ceo.jpg"}
                 alt="Fitness training"
                 className="rounded-2xl shadow-2xl object-cover"
               />
@@ -246,7 +185,7 @@ const About = () => {
             onClick={() => setIsVideoOpen(true)}
           >
             <img
-              src="/comm.jpg"
+              src="/trhivbeatsimage.jpg"
               alt="ThrivBeat exercise program preview"
               className="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
             />
@@ -286,7 +225,7 @@ const About = () => {
                 controls
                 className="w-full h-full"
               >
-                <source src="/trhivbeatsvideo.mp4" type="video/mp4" />
+                <source src="/thrivbeatsabout.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               <button
@@ -328,11 +267,13 @@ const About = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full">
-                  <div className="relative h-48 overflow-hidden">
-                    <img
+                  <div className="relative h-[350px]  overflow-hidden">
+                    <Image
                       src={feature.image}
+                      width={200}
+                      height={200}
                       alt={feature.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover  transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-4 left-4">

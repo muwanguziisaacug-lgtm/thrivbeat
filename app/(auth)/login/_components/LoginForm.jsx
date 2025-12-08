@@ -125,7 +125,7 @@ export default function LoginForm() {
                 <Separator />
 
                 <Button
-                  className="w-full"
+                  className="w-full bg-red-600 text-white"
                   disabled={githubPending}
                   variant="outline"
                   onClick={signWithGitHub}
