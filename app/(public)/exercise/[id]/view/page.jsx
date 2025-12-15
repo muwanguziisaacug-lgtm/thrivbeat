@@ -120,7 +120,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 					}
 
 					if (!json || !json.url) {
-						console.error('video-url: missing url in response', { status: res.status, body: json });
 						throw new Error('No url returned from server');
 					}
 

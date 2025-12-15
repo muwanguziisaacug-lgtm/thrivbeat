@@ -6,6 +6,7 @@ import { Heart, Target, Users, Award, Play, Shield, Clock, Sparkles, CheckCircle
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import ServicesComponent from "./Services";
 
 const About = () => {
 
@@ -238,6 +239,8 @@ const About = () => {
           </motion.div>
         )}
       </section>
+
+      <ServicesComponent />
 
       {/* Features Grid */}
       <section className="py-20 lg:px-20  ">

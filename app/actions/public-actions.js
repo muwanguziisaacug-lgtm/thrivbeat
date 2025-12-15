@@ -357,3 +357,46 @@ export async function deleteMember(id) {
     return { success: false, message: 'UnExpected Error Occured'}
   }
 }
+
+// Booking form submission
+
+export async function submitBookingRequest(formData) {
+  const { name, email, phone, serviceType, groupSize, preferredDate, location, message } = formData;
+
+  // Validate required fields
+  if (!name || !email || !serviceType || !groupSize || !location) {
+    return { success: false, message: 'Please fill all required fields' };
+  }
+
+  try {
+    const { resend } = await import('@/lib/resend');
+    const BookingEmailTemplate = (await import('@/components/EmailComponents/BookingEmailTemplate')).default;
+
+    // Send email to ThrivBeat support
+    const emailResponse = await resend.emails.send({
+      from: 'bookings@thrivbeats.com',
+      to: 'muwanguziisaacuganda@gmail.com',
+      subject: `New Booking Request: ${serviceType === 'chair-classes' ? 'Chair-Based Classes' : 'Event Booking'}`,
+      react: BookingEmailTemplate({
+        name,
+        email,
+        phone,
+        serviceType,
+        groupSize,
+        preferredDate,
+        location,
+        message,
+      }),
+    });
+
+    if (emailResponse.error) {
+      console.error('Resend error:', emailResponse.error);
+      return { success: false, message: 'Failed to send booking request. Please try again.' };
+    }
+
+    return { success: true, message: 'Booking request submitted successfully! We will get back to you within 24-48 hours.' };
+  } catch (error) {
+    console.error('Booking submission error:', error);
+    return { success: false, message: 'An error occurred while submitting your booking request.' };
+  }
+}
