@@ -313,7 +313,7 @@ const BookingServices = () => {
                     <Phone className="w-4 h-4" />
                     Call us
                   </a>
-                  <a href="mailto:info@thrivbeat.com" className="flex items-center justify-center gap-2 text-primary hover:underline">
+                  <a href="mailto:thrivbeats@yahoo.com" className="flex items-center justify-center gap-2 text-primary hover:underline">
                     <Mail className="w-4 h-4" />
                     info@thrivbeat.com
                   </a>

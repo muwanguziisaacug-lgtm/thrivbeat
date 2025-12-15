@@ -1,9 +1,12 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Armchair, Calendar, Check, Users } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const EventsComponent = () => {
+    const router = useRouter();
   return (
         <div className="mb-16 mt-20">
             <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
@@ -49,7 +52,7 @@ const EventsComponent = () => {
                       <span className="text-gray-700">Suitable for all mobility levels</span>
                     </li>
                   </ul>
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" onClick={() => router.push('/pricing/booking')}>
                     <Users className="w-4 h-4 mr-2" />
                     Enquire About Classes
                   </Button>
@@ -95,7 +98,7 @@ const EventsComponent = () => {
                       <span className="text-gray-700">Community gatherings</span>
                     </li>
                   </ul>
-                  <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white">
+                  <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white" onClick={() => router.push('/pricing/booking')}>
                     <Calendar className="w-4 h-4 mr-2" />
                     Request a Quote
                   </Button>

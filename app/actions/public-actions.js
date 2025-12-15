@@ -375,7 +375,7 @@ export async function submitBookingRequest(formData) {
     // Send email to ThrivBeat support
     const emailResponse = await resend.emails.send({
       from: 'bookings@thrivbeats.com',
-      to: 'muwanguziisaacuganda@gmail.com',
+      to: 'thrivbeats@yahoo.com',
       subject: `New Booking Request: ${serviceType === 'chair-classes' ? 'Chair-Based Classes' : 'Event Booking'}`,
       react: BookingEmailTemplate({
         name,
@@ -390,13 +390,11 @@ export async function submitBookingRequest(formData) {
     });
 
     if (emailResponse.error) {
-      console.error('Resend error:', emailResponse.error);
       return { success: false, message: 'Failed to send booking request. Please try again.' };
     }
 
     return { success: true, message: 'Booking request submitted successfully! We will get back to you within 24-48 hours.' };
   } catch (error) {
-    console.error('Booking submission error:', error);
     return { success: false, message: 'An error occurred while submitting your booking request.' };
   }
 }
