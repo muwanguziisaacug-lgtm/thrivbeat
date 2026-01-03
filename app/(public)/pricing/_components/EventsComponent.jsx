@@ -8,8 +8,8 @@ import React from 'react'
 const EventsComponent = () => {
     const router = useRouter();
   return (
-        <div className="mb-16 mt-20">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+        <div className="mb-16 mt-20 dark:text-white">
+            <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-8">
               Group & Event Services
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
@@ -22,34 +22,34 @@ const EventsComponent = () => {
                   <div className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-2">
                     Ideal for Care Homes
                   </div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
                     Chair-Based Exercise Classes
                   </CardTitle>
-                  <p className="text-gray-600 mt-2">
+                  <p className=" mt-2">
                     Weekly group sessions perfect for care homes, community centers, and residential facilities.
                   </p>
                 </CardHeader>
                 <CardContent className="text-center">
                   <div className="mb-6">
                     <div className="text-4xl font-bold text-primary">£5</div>
-                    <div className="text-gray-600">per person</div>
+                    <div className="">per person</div>
                   </div>
                   <ul className="space-y-3 mb-6 text-left">
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">Weekly recurring sessions</span>
+                      <span className="">Weekly recurring sessions</span>
                     </li>
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">Safe chair-based exercises</span>
+                      <span className="">Safe chair-based exercises</span>
                     </li>
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">Professional instructor visits your location</span>
+                      <span className="">Professional instructor visits your location</span>
                     </li>
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">Suitable for all mobility levels</span>
+                      <span className="">Suitable for all mobility levels</span>
                     </li>
                   </ul>
                   <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" onClick={() => router.push('/pricing/booking')}>
@@ -68,34 +68,34 @@ const EventsComponent = () => {
                   <div className="inline-block bg-orange-100 text-orange-800 text-xs font-semibold px-3 py-1 rounded-full mb-2">
                     One-Off Events
                   </div>
-                  <CardTitle className="text-2xl font-bold text-gray-900">
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
                     Event Booking
                   </CardTitle>
-                  <p className="text-gray-600 mt-2">
+                  <p className=" mt-2">
                     Book our instructors for wellness events, barbecues, team building, and community gatherings.
                   </p>
                 </CardHeader>
                 <CardContent className="text-center">
                   <div className="mb-6">
-                    <div className="text-4xl font-bold text-gray-900">£35 - £70</div>
-                    <div className="text-gray-600">per event</div>
+                    <div className="text-4xl font-bold text-gray-900 dark:text-white">£175</div>
+                    <div className="">per event</div>
                   </div>
                   <ul className="space-y-3 mb-6 text-left">
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">Wellness & fitness events</span>
+                      <span className="">Wellness & fitness events</span>
                     </li>
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">Barbecues & outdoor activities</span>
+                      <span className="">Barbecues & outdoor activities</span>
                     </li>
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">Corporate team building</span>
+                      <span className="">Corporate team building</span>
                     </li>
                     <li className="flex items-start">
                       <Check className="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">Community gatherings</span>
+                      <span className="">Community gatherings</span>
                     </li>
                   </ul>
                   <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white" onClick={() => router.push('/pricing/booking')}>
