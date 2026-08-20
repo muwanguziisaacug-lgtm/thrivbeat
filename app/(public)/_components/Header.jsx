@@ -1,313 +1,72 @@
-'use client'
-import { useState, useTransition } from "react";
-import { Menu, X, Heart, Loader2, LogOut } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { UserDropDown } from "./UserDropDown";
-import { ModeToggle } from "@/components/ui/ModeToggle";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { getSubscriptionStatus } from "@/app/actions/public-actions";
-import Image from "next/image";
 
+const navigation = [
+  { name: "Personalised Exercise", href: "/exercise" },
+  { name: "Care Homes", href: "/care-homes" },
+  { name: "Workplace Wellbeing", href: "/workplace-wellbeing" },
+  { name: "Ongoing Support", href: "/ongoing-support" },
+  { name: "About", href: "/about" },
+  { name: "Pricing", href: "/pricing" },
+];
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {data: session, status} = authClient.useSession();
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-  
-    const handleLogout = () => {
-    startTransition(async () => {
-      await authClient.signOut({
-        fetchOptions: {
-          onSuccess: () => {
-            toast.success('Logged out successfully');
-            router.push('/');
-          },
-          onError: () => toast.error('Failed to log out. Please try again'),
-        },
-      });
-    });
-    };
-    
-    const handleGetStarted = async () => {
-
-        try {
-            const response = await getSubscriptionStatus();
-
-            if (!response.success) {
-                router.push("/pricing/checkout");
-                toast.error(response.message);
-            }
-            router.push('/exercise')
-            toast.message('loaded Successful')
-        }
-        catch {
-                toast.error('Failed to load');
-        }
-
-    }
-
-  const navigation = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Exercise", href: "/exercise" },  
-    { name: "Community", href: "/community" },  
-    { name: "Support", href: "/support" },
-    { name: "Contact", href: "/contact" },
-  ];
+export default function Header() {
+  const [open, setOpen] = useState(false);
+  const { data: session } = authClient.useSession();
 
   return (
-		<motion.header
-			className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm text-foreground shadow-sm border-b"
-			initial={{ y: -100 }}
-			animate={{ y: 0 }}
-			transition={{ duration: 0.6, ease: "easeOut" }}
-		>
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="flex justify-between items-center h-16">
-					{/* Logo */}
-					<motion.div
-						className=""
-						whileHover={{ scale: 1.05 }}
-						transition={{ duration: 0.2 }}
-					>
-						<Link href="/" className="flex items-center space-x-2">
-							<motion.div
-								className="w-10 h-10 relative bg-red-600 rounded-full flex items-center justify-center"
-								whileHover={{ rotate: 360 }}
-								transition={{ duration: 0.5 }}
-							>
-								{/* <Heart className="w-5 h-5 text-white fill-current" /> */}
-								<Image 
-									src='/logo.jpg'
-									fill
-									alt="thrivbeats logo"
-									className="object-cover"
-								/>
-							</motion.div>
-							<span className="text-xl font-bold text-foreground">
-								ThrivBeats
-							</span>
-						</Link>
-					</motion.div>
+    <header className="sticky top-0 z-50 border-b border-black/5 bg-[#fffaf6]/95 backdrop-blur-xl">
+      <a href="#main-content" className="focus-ring absolute left-4 top-2 z-[60] -translate-y-20 rounded-md bg-black px-4 py-2 text-white focus:translate-y-0">
+        Skip to content
+      </a>
+      <div className="site-container flex min-h-20 items-center justify-between gap-5">
+        <Link href="/" className="focus-ring flex shrink-0 items-center gap-3 rounded-md" aria-label="ThrivBeats home">
+          <span className="relative h-11 w-12 overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-black/5">
+            <Image src="/logo.jpg" alt="" fill sizes="48px" className="object-contain" priority />
+          </span>
+          <span className="text-xl font-black tracking-tight text-[#231b1a]">ThrivBeats</span>
+        </Link>
 
-					{/* Desktop Navigation */}
-					<nav className="hidden md:flex items-center space-x-8">
-						{navigation.map((item, index) => (
-							<motion.div
-								key={item.name}
-								initial={{ opacity: 0, y: -20 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{
-									duration: 0.5,
-									delay: index * 0.1,
-								}}
-							>
-								<Link
-									href={item.href}
-									className="text-foreground hover:text-red-600 font-medium transition-colors duration-200 relative"
-								>
-									<motion.span
-										whileHover={{ scale: 1.1 }}
-										transition={{ duration: 0.2 }}
-									>
-										{item.name}
-									</motion.span>
-								</Link>
-							</motion.div>
-						))}
-					</nav>
+        <nav className="hidden items-center gap-5 xl:flex" aria-label="Primary navigation">
+          {navigation.map((item) => (
+            <Link key={item.href} href={item.href} className="focus-ring rounded-md text-sm font-semibold text-[#4c403d] transition hover:text-red-700">
+              {item.name}
+            </Link>
+          ))}
+        </nav>
 
-					{/* Desktop CTA */}
-					<motion.div
-						className="hidden md:flex items-center space-x-4"
-						initial={{ opacity: 0, x: 20 }}
-						animate={{ opacity: 1, x: 0 }}
-						transition={{ duration: 0.5, delay: 0.3 }}
-					>
-						{status === "loading" ? (
-							<Button variant="outline" size="sm" disabled>
-								<Loader2 className="w-4 h-4 animate-spin" />
-							</Button>
-						) : session ? (
-							<>
-								{/* 1) User menu trigger: */}
-								<UserDropDown session={session} />
-							</>
-						) : (
-							<motion.div
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-							>
-								<Button variant="outline" size="sm" asChild>
-									<Link href="/login">Sign In</Link>
-								</Button>
-							</motion.div>
-						)}
+        <div className="hidden items-center gap-3 md:flex">
+          {session ? <UserDropDown session={session} /> : (
+            <Link href="/login" className="focus-ring rounded-full px-4 py-2 text-sm font-bold text-[#4c403d] hover:bg-black/5">Sign in</Link>
+          )}
+          <Link href="/exercise#assessment" className="focus-ring rounded-full bg-red-700 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-red-800">
+            Get your programme
+          </Link>
+        </div>
 
-                          <Button
-                              className="bg-red-600 hover:bg-red-700 text-white"
-                            onClick={() => handleGetStarted()}
-                          >
-								Get Started
-							</Button>
-						<ModeToggle />
-					</motion.div>
+        <button type="button" className="focus-ring rounded-full border border-black/10 p-3 xl:hidden" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
+      </div>
 
-					{/* Mobile menu button */}
-					<div className="md:hidden flex">
-						<motion.div
-							className="flex md:hidden items-center space-x-4"
-							initial={{ opacity: 0, x: 20 }}
-							animate={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.5, delay: 0.3 }}
-						>
-							{status === "loading" ? (
-								<Button variant="outline" size="sm" disabled>
-									<Loader2 className="w-4 h-4 animate-spin" />
-								</Button>
-							) : session ? (
-								<>
-									<UserDropDown session={session} />
-								</>
-							) : (
-								<motion.div
-									whileHover={{ scale: 1.05 }}
-									whileTap={{ scale: 0.95 }}
-								>
-									<Button variant="outline" size="sm" asChild>
-										<Link href="/login">Sign In</Link>
-									</Button>
-								</motion.div>
-							)}
-						</motion.div>
-
-						<motion.div whileTap={{ scale: 0.9 }}>
-							<Button
-								variant="ghost"
-								size="sm"
-								onClick={() => setIsMenuOpen(!isMenuOpen)}
-							>
-								<AnimatePresence mode="wait">
-									{isMenuOpen ? (
-										<motion.div
-											key="close"
-											initial={{
-												rotate: -90,
-												opacity: 0,
-											}}
-											animate={{ rotate: 0, opacity: 1 }}
-											exit={{ rotate: 90, opacity: 0 }}
-											transition={{ duration: 0.2 }}
-										>
-											<X className="h-6 w-6" />
-										</motion.div>
-									) : (
-										<motion.div
-											key="menu"
-											initial={{ rotate: 90, opacity: 0 }}
-											animate={{ rotate: 0, opacity: 1 }}
-											exit={{ rotate: -90, opacity: 0 }}
-											transition={{ duration: 0.2 }}
-										>
-											<Menu className="h-6 w-6" />
-										</motion.div>
-									)}
-								</AnimatePresence>
-							</Button>
-						</motion.div>
-					</div>
-				</div>
-
-				{/* Mobile Navigation */}
-				<AnimatePresence>
-					{isMenuOpen && (
-						<motion.div
-							className="md:hidden border-t bg-background"
-							initial={{ opacity: 0, height: 0 }}
-							animate={{ opacity: 1, height: "auto" }}
-							exit={{ opacity: 0, height: 0 }}
-							transition={{ duration: 0.3 }}
-						>
-							<div className="px-2 pt-2 pb-3 space-y-1">
-								{navigation.map((item, index) => (
-									<motion.div
-										key={item.name}
-										initial={{ opacity: 0, x: -20 }}
-										animate={{ opacity: 1, x: 0 }}
-										transition={{
-											duration: 0.3,
-											delay: index * 0.1,
-										}}
-									>
-										<Link
-											href={item.href}
-											className="block px-3 py-2 hover:text-red-600 font-medium"
-											onClick={() => setIsMenuOpen(false)}
-										>
-											{item.name}
-										</Link>
-									</motion.div>
-								))}
-								<motion.div
-									className="pt-4 space-y-2"
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.3, delay: 0.4 }}
-								>
-									{status === "loading" ? (
-										<Button
-											variant="outline"
-											size="sm"
-											disabled
-										>
-											<Loader2 className="w-4 h-4 animate-spin" />
-										</Button>
-									) : session ? (
-										<Button
-											variant="outline"
-											size="sm"
-											onClick={handleLogout}
-										>
-											{isPending ? (
-												<Loader2 className="w-4 h-4 animate-spin" />
-											) : (
-												<>
-													<LogOut className="w-4 h-4 mr-1" />
-													Log Out
-												</>
-											)}
-										</Button>
-									) : (
-										<motion.div
-											whileHover={{ scale: 1.05 }}
-											whileTap={{ scale: 0.95 }}
-										>
-											<Button
-												variant="outline"
-												size="sm"
-												asChild
-											>
-												<Link href="/login">
-													Sign In
-												</Link>
-											</Button>
-										</motion.div>
-									)}
-									<ModeToggle />
-								</motion.div>
-							</div>
-						</motion.div>
-					)}
-				</AnimatePresence>
-			</div>
-		</motion.header>
+      {open && (
+        <div className="border-t border-black/5 bg-[#fffaf6] xl:hidden">
+          <nav className="site-container grid gap-1 py-5" aria-label="Mobile navigation">
+            <Link href="/" onClick={() => setOpen(false)} className="focus-ring rounded-lg px-3 py-3 font-semibold hover:bg-white">Home</Link>
+            {navigation.map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="focus-ring rounded-lg px-3 py-3 font-semibold hover:bg-white">{item.name}</Link>
+            ))}
+            <Link href="/contact" onClick={() => setOpen(false)} className="focus-ring rounded-lg px-3 py-3 font-semibold hover:bg-white">Contact</Link>
+            <Link href="/exercise#assessment" onClick={() => setOpen(false)} className="focus-ring mt-3 rounded-full bg-red-700 px-5 py-3 text-center font-bold text-white">Get your programme</Link>
+          </nav>
+        </div>
+      )}
+    </header>
   );
-};
-
-export default Header;
+}

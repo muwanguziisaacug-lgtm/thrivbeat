@@ -71,6 +71,11 @@ export async function POST(req) {
 
     const planUpper = String(plan).toUpperCase();
 
+    // Preserve legacy records, while limiting all new public checkout.
+    if (planUpper !== "STANDARD" || period !== "MONTHLY") {
+      return NextResponse.json({ error: "Only Standard monthly is available for new subscriptions." }, { status: 400 });
+    }
+
     // If user is logged in, prevent starting another subscription if they already have an active one
     if (userId) {
       const existing = await prisma.subscription.findFirst({ where: { userId, status: 'active' } });

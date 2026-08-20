@@ -1,149 +1,37 @@
-
-import { Heart, Facebook, Instagram, Youtube, Twitter } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import SubscriptionInput from "./SubscriptionInput";
 
+const columns = [
+  { title: "Services", links: [["Personalised exercise", "/exercise"], ["Care homes", "/care-homes"], ["Workplace wellbeing", "/workplace-wellbeing"], ["Ongoing support", "/ongoing-support"], ["Community sessions", "/community-sessions"]] },
+  { title: "Explore", links: [["About Sharon", "/about"], ["Pricing", "/pricing"], ["Resources", "/resources"], ["Support", "/support"], ["Contact", "/contact"]] },
+  { title: "Legal", links: [["Privacy policy", "/privacy"], ["Terms", "/legal/terms"], ["Medical disclaimer", "/medical-disclaimer"], ["Accessibility", "/accessibility"]] },
+];
 
-
-const Footer = () => {
-  const footerLinks = {
-    company: [
-      { name: "About Us", href: "/about" },
-      { name: "Pricing", href: "/pricing" },
-      { name: "Exercises", href: "/exercise" },
-      // { name: "Press", href: "/press" },
-    ],
-    support: [
-      { name: "Help Center", href: "/support" },
-      { name: "Contact Us", href: "/contact" },
-      { name: "FAQ", href: "/support#faq" },
-      { name: "Community", href: "/community" },
-    ],
-    legal: [
-      { name: "Terms & Conditions", href: "/legal/terms" },
-      { name: "Privacy Policy", href: "/legal/policy" },
-      { name: "Medical Disclaimer", href: "/legal/medicaldisclaimer" },
-      { name: "Accessibility", href: "/legal/accessbility" },
-    ],
-    resources: [
-      { name: "Exercise Library", href: "/exercises" },
-      { name: "Health Articles", href: "/articles" },
-      { name: "Success Stories", href: "/stories" },
-      { name: "Free Resources", href: "/resources" },
-    ],
-    };
-    
-    
-
+export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Brand Section */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
-                <Heart className="w-6 h-6 text-white fill-current" />
-              </div>
-              <span className="text-2xl font-bold">ThrivBeats</span>
-            </div>
-            <p className="text-gray-300 leading-relaxed mb-6 max-w-md">
-              Empowering mature adults with safe, guided exercise programs designed 
-              to support chronic-condition recovery and lifelong heart health.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-red-500 transition-colors">
-                <Facebook className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-red-500 transition-colors">
-                <Instagram className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-red-500 transition-colors">
-                <Youtube className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-red-500 transition-colors">
-                <Twitter className="w-6 h-6" />
-              </a>
-            </div>
-          </div>
-
-          {/* Footer Links */}
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Company</h3>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-gray-300 hover:text-white transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Support</h3>
-            <ul className="space-y-3">
-              {footerLinks.support.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-gray-300 hover:text-white transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Legal</h3>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-gray-300 hover:text-white transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <footer className="bg-[#211817] text-white">
+      <div className="site-container grid gap-12 py-16 lg:grid-cols-[1.35fr_2fr]">
+        <div>
+          <Link href="/" className="focus-ring inline-flex items-center gap-3 rounded-md">
+            <span className="relative h-12 w-14 overflow-hidden rounded-xl bg-white"><Image src="/logo.jpg" alt="" fill sizes="56px" className="object-contain" /></span>
+            <span className="text-2xl font-black">ThrivBeats</span>
+          </Link>
+          <p className="mt-5 max-w-md text-base leading-7 text-white/70">Personalised exercise prescription and ongoing support, delivered remotely worldwide and extended into care homes, workplaces and communities in Scotland.</p>
+          <div className="mt-7 max-w-md"><p className="mb-3 text-sm font-bold">Useful guidance, thoughtfully shared.</p><SubscriptionInput /></div>
         </div>
-
-        {/* Newsletter Signup */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="text-center">
-            <h3 className="text-xl font-semibold mb-4">Stay Connected</h3>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Get health tips, exercise updates, and inspiring stories delivered to your inbox
-            </p>
-            <SubscriptionInput />
-            {/* <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-red-500"
-              />
-              <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
-                Subscribe
-              </button>
-            </div> */}
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <div className="flex flex-col sm:flex-row justify-between items-center">
-                      <p>&copy; {new Date().getFullYear()} ThrivBeat. All rights reserved.</p>
-            <div className="mt-4 sm:mt-0">
-              <p className="text-sm">
-                Made with <Heart className="w-4 h-4 inline fill-current text-red-500" /> for your health
-              </p>
+        <div className="grid gap-9 sm:grid-cols-3">
+          {columns.map((column) => (
+            <div key={column.title}>
+              <h2 className="text-sm font-black uppercase tracking-[0.16em] text-red-300">{column.title}</h2>
+              <ul className="mt-5 space-y-3">
+                {column.links.map(([label, href]) => <li key={href}><Link href={href} className="focus-ring rounded text-sm text-white/70 hover:text-white">{label}</Link></li>)}
+              </ul>
             </div>
-          </div>
+          ))}
         </div>
       </div>
+      <div className="border-t border-white/10"><div className="site-container flex flex-col gap-3 py-6 text-sm text-white/55 sm:flex-row sm:items-center sm:justify-between"><p>© {new Date().getFullYear()} ThrivBeats. All rights reserved.</p><p>Remote support worldwide · On-site services in Scotland</p></div></div>
     </footer>
   );
-};
-
-export default Footer;
+}

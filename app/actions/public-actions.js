@@ -374,8 +374,8 @@ export async function submitBookingRequest(formData) {
 
     // Send email to ThrivBeat support
     const emailResponse = await resend.emails.send({
-      from: 'bookings@thrivbeats.com',
-      to: 'thrivbeats@yahoo.com',
+      from: process.env.RESEND_FROM_EMAIL || 'ThrivBeats <onboarding@resend.dev>',
+      to: process.env.LEAD_NOTIFICATION_EMAIL || 'thrivbeats@yahoo.com',
       subject: `New Booking Request: ${serviceType === 'chair-classes' ? 'Chair-Based Classes' : 'Event Booking'}`,
       react: BookingEmailTemplate({
         name,

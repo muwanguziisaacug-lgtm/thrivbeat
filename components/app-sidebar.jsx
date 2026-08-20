@@ -17,6 +17,7 @@ import {
 	IconSearch,
 	IconSettings,
 	IconUsers,
+	IconMail,
 } from "@tabler/icons-react";
 import { Dumbbell } from "lucide-react";
 import { NavDocuments } from "@/components/nav-documents"
@@ -67,6 +68,11 @@ const data = {
 			title: "Community",
 			url: "/admin/dashboard/community",
 			icon: IconFolder,
+		},
+		{
+			title: "Leads",
+			url: "/admin/dashboard/leads",
+			icon: IconMail,
 		},
 		{
 			title: "Users",
@@ -142,7 +148,7 @@ export function AppSidebar({
               {/* Use Next.js Link for logo navigation */}
               <Link href="/admin/dashboard">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">ThrivBeat</span>
+                <span className="text-base font-semibold">ThrivBeats</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -14,8 +14,9 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 
 export const metadata = {
-title: "ThrivBeat",
-description: `Your physical therapist for cardiac issues`,
+title: "ThrivBeats Admin",
+description: "Private ThrivBeats administration area",
+robots: { index: false, follow: false },
 };
 
 export default function RootLayout({ children }) {

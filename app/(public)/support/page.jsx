@@ -1,42 +1,4 @@
-"use client";
-import { useState } from "react";
-import { faqData } from "@/app/constants/constant";
-import { SupportPage } from "../_components/SupportComponent";
-import { useRouter } from "next/navigation";
-
-const Support = () => {
-	const [openFaq, setOpenFaq] = useState(null);
-	const [searchTerm, setSearchTerm] = useState("");
-    const router = useRouter()
-
-
-	const filteredFaqs = faqData
-		.map((category) => ({
-			...category,
-			questions: category.questions.filter(
-				(q) =>
-					q.question
-						.toLowerCase()
-						.includes(searchTerm.toLowerCase()) ||
-					q.answer.toLowerCase().includes(searchTerm.toLowerCase())
-			),
-		}))
-		.filter((category) => category.questions.length > 0);
-
-	const toggleFaq = (index) => {
-		setOpenFaq(openFaq === index ? null : index);
-	};
-
-	return (
-		<SupportPage
-			searchTerm={searchTerm}
-			setSearchTerm={setSearchTerm}
-			filteredFaqs={filteredFaqs}
-			openFaq={openFaq}
-            toggleFaq={toggleFaq}
-            router = { router }
-		/>
-	);
-};
-
-export default Support;
+import Link from "next/link";
+export const metadata={title:"Help and Support",description:"Get help with your ThrivBeats account, exercise access, billing or programme.",alternates:{canonical:"/support"}};
+const faqs=[{q:"How do I access my exercises?",a:"Sign in with the account used for your ThrivBeats subscription, then open your dashboard or the exercise library."},{q:"What if an exercise does not feel right?",a:"Stop the exercise and contact ThrivBeats for guidance. Seek urgent medical help if you have severe or worrying symptoms."},{q:"Can I change or cancel my subscription?",a:"Your account retains its existing entitlement until a change is processed under the subscription terms. Contact us if you need help."},{q:"Do you provide on-site services outside Scotland?",a:"On-site delivery is currently Scotland-based. Remote services can be discussed worldwide."}];
+export default function Page(){const schema={"@context":"https://schema.org","@type":"FAQPage",mainEntity:faqs.map(x=>({"@type":"Question",name:x.q,acceptedAnswer:{"@type":"Answer",text:x.a}}))};return <main id="main-content" className="section-space"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema)}}/><div className="site-container max-w-4xl"><p className="eyebrow">Help and support</p><h1 className="mt-4 text-4xl font-black sm:text-5xl">Straightforward help when you need it</h1><div className="mt-9 space-y-4">{faqs.map(x=><details key={x.q} className="rounded-2xl border border-stone-200 bg-white p-5"><summary className="cursor-pointer text-lg font-bold">{x.q}</summary><p className="mt-4 leading-7 text-stone-700">{x.a}</p></details>)}</div><div className="mt-10 rounded-3xl bg-[#f8f2eb] p-7"><h2 className="text-2xl font-black">Still need help?</h2><p className="mt-3 text-stone-700">Tell us what is happening and we’ll point you to the right support.</p><Link className="mt-5 inline-flex rounded-full bg-rose-800 px-5 py-3 font-bold text-white" href="/contact">Contact ThrivBeats</Link></div></div></main>}

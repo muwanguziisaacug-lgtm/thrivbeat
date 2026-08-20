@@ -1,0 +1,1 @@
+export default function robots(){return {rules:{userAgent:"*",allow:"/",disallow:["/admin/","/dashboard/","/onboarding/","/api/","/login","/signup","/forgot-password"]},sitemap:"https://www.thrivbeats.com/sitemap.xml",host:"https://www.thrivbeats.com"}}

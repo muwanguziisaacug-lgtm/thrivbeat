@@ -3,6 +3,14 @@ import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	async redirects() {
+		return [
+			{ source: "/exercises", destination: "/exercise", permanent: true },
+			{ source: "/legal/policy", destination: "/privacy", permanent: true },
+			{ source: "/legal/medicaldisclaimer", destination: "/medical-disclaimer", permanent: true },
+			{ source: "/legal/accessbility", destination: "/accessibility", permanent: true },
+		];
+	},
 	images: {
 		remotePatterns: [
 			{

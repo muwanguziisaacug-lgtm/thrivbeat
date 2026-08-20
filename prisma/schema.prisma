@@ -132,6 +132,28 @@ model Support {
   updatedAt DateTime @updatedAt
 }
 
+model Lead {
+  id             String     @id @default(uuid())
+  kind           LeadKind
+  status         LeadStatus @default(NEW)
+  name           String
+  email          String
+  phone          String?
+  country        String?
+  organisation   String?
+  location       String?
+  preferredContact String?
+  message        String?
+  details        Json?
+  consentVersion String
+  consentedAt    DateTime
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([kind, status, createdAt])
+  @@index([email])
+}
+
 model Subscription {
   id                   String             @id @default(uuid()) @map("_id")
   userId               String
@@ -252,4 +274,18 @@ enum ExerciseLevel {
   Beginner
   Intermediate
   Advanced
+}
+
+enum LeadKind {
+  ASSESSMENT
+  CARE_HOME
+  WORKPLACE
+  COMMUNITY
+  GENERAL
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  CLOSED
 }

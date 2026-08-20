@@ -23,9 +23,9 @@ export async function POST(req) {
 		if (!created) return NextResponse.json({ success: false, message: 'Failed to submit' }, { status: 400 });
 
 		await resend.emails.send({
-			from: 'THRIVBEAT <onboarding@resend.dev>',
-			to: ['muwanguziisaacuganda@gmail.com'],
-			subject: 'THIRVBEATS - SUPPORT EMAILS',
+			from: process.env.RESEND_FROM_EMAIL || 'ThrivBeats <onboarding@resend.dev>',
+			to: [process.env.LEAD_NOTIFICATION_EMAIL || 'thrivbeats@yahoo.com'],
+			subject: 'ThrivBeats — support enquiry',
 			react: SupportEmailTemplate({ name: parsed.name, email: parsed.email, subject: parsed.subject, message: parsed.message })
 		})
 
