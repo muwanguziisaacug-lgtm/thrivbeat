@@ -7,9 +7,17 @@ import { requireSession } from "@/lib/require-session";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 async function getPriceId(plan, period) {
-  // Expect environment variables like STRIPE_PRICE_BASIC_MONTHLY, STRIPE_PRICE_BASIC_YEARLY, etc.
-  const key = `STRIPE_PRICE_${plan}_${period}`;
-  const envVal = process.env[key];
+  const configuredKeys = [
+    `STRIPE_PRICE_${plan}_${period}`,
+    ...(period === "MONTHLY"
+      ? {
+          BASIC: ["STRIPE_MONTLY_BASIC", "STRIPE_MONTHLY_BASIC"],
+          STANDARD: ["STRIPE_MONTHLY_STANDARD"],
+          PREMIUM: ["STRIPE_MONTHLY_PREMIUM"],
+        }[plan] || []
+      : []),
+  ];
+  const envVal = configuredKeys.map((key) => process.env[key]).find(Boolean);
   if (envVal) {
     // If the env value is a product id (prod_...), list prices for that product and pick matching interval
     if (typeof envVal === 'string' && envVal.startsWith('prod_')) {
@@ -54,26 +62,22 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Missing plan or period' }, { status: 400 });
     }
 
-  // Try to obtain the logged-in user's id from the server session first
-    let userId = undefined;
-    try {
-      const session = await requireSession();
-      if (session && typeof session === 'object') {
-        if (session.user && session.user.id) userId = session.user.id;
-        else if (session.id) userId = session.id;
-      }
-    } catch (err) {
-      console.warn('requireSession error (allowing anonymous checkout):', err?.message || err);
+    const session = await requireSession();
+    if (!session || session.success === false) {
+      return NextResponse.json({ error: "Login required to start a subscription" }, { status: 401 });
     }
 
-    // If not found in session, allow client to pass userId (for backward compatibility)
-    if (!userId && body.userId) userId = body.userId;
+    const userId = session.user?.id || session.id;
+    if (!userId) {
+      return NextResponse.json({ error: "Unable to identify the authenticated user" }, { status: 401 });
+    }
 
     const planUpper = String(plan).toUpperCase();
 
     // Preserve legacy records, while limiting all new public checkout.
-    if (planUpper !== "STANDARD" || period !== "MONTHLY") {
-      return NextResponse.json({ error: "Only Standard monthly is available for new subscriptions." }, { status: 400 });
+    const publicPlans = ["BASIC", "STANDARD", "PREMIUM"];
+    if (!publicPlans.includes(planUpper) || period !== "MONTHLY") {
+      return NextResponse.json({ error: "Choose Basic, Standard or Premium monthly." }, { status: 400 });
     }
 
     // If user is logged in, prevent starting another subscription if they already have an active one

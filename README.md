@@ -35,3 +35,15 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # thrivbeat
+
+## Subscription pricing
+
+The public pricing page offers monthly Stripe subscriptions:
+
+| Plan | Price | Stripe environment variable |
+| --- | ---: | --- |
+| Basic | £10/month | `STRIPE_PRICE_BASIC_MONTHLY` or `STRIPE_MONTLY_BASIC` |
+| Standard | £39/month | `STRIPE_PRICE_STANDARD_MONTHLY` or `STRIPE_MONTHLY_STANDARD` |
+| Premium | £50/month | `STRIPE_PRICE_PREMIUM_MONTHLY` or `STRIPE_MONTHLY_PREMIUM` |
+
+Set each variable to the matching active Stripe product or recurring price ID. The checkout API resolves recurring monthly prices from product IDs and also supports the existing `<PLAN>_PRODUCT_ID` fallback. `STRIPE_MONTLY_BASIC` is supported with the spelling supplied by the current Stripe configuration.

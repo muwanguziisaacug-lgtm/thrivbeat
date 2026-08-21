@@ -31,8 +31,8 @@ export default function BillingInfo() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div>
-              <h3 className="font-semibold">Premium Plan</h3>
-              <p className="text-sm text-muted-foreground">$29.99 / month</p>
+              <h3 className="font-semibold">Current monthly plan</h3>
+              <p className="text-sm text-muted-foreground">Basic £10, Standard £39 or Premium £50 / month</p>
             </div>
             <Badge>Active</Badge>
           </div>
@@ -134,9 +134,9 @@ export default function BillingInfo() {
         <CardContent>
           <div className="space-y-3">
             {[
-              { date: "Mar 1, 2025", amount: "$29.99", status: "Paid" },
-              { date: "Feb 1, 2025", amount: "$29.99", status: "Paid" },
-              { date: "Jan 1, 2025", amount: "$29.99", status: "Paid" }
+              { date: "Mar 1, 2025", amount: "£39", status: "Paid" },
+              { date: "Feb 1, 2025", amount: "£39", status: "Paid" },
+              { date: "Jan 1, 2025", amount: "£39", status: "Paid" }
             ].map((transaction, index) => (
               <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                 <div>
